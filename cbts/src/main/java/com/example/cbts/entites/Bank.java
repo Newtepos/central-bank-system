@@ -12,10 +12,10 @@ public class Bank {
 
     private String bankName;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Cash> balance;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Location location;
 
     public Bank() {
