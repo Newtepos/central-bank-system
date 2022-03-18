@@ -36,5 +36,7 @@ public class CBTSService {
             cashList.add(cash);
         }
         Bank newBank = new Bank(bankName, cashList, location);
+
+        bankRepository.save(newBank);
     }
 }
