@@ -9,4 +9,7 @@ public class CBTSController {
 
     @Autowired
     CBTSService cbtsService;
+
+    public void createBank() {
+    }
 }
