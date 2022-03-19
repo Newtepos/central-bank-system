@@ -1,6 +1,7 @@
 package com.example.cbts.controller;
 
 import com.example.cbts.dto.BankDTO;
+import com.example.cbts.dto.CBTSCashPackageDTO;
 import com.example.cbts.dto.MoneyTruckDTO;
 import com.example.cbts.service.CBTSService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +53,16 @@ public class CBTSController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("money-truck/{id}/current")
+    @GetMapping("/money-truck/{id}/current")
     public ResponseEntity<?> getMoneyTruckRecentLocationById(@PathVariable long id) {
         MoneyTruckDTO result = cbtsService.getMoneyTruckLocationById(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/cbts-package")
+    public ResponseEntity<?> createCBTSCashPackage(@RequestBody CBTSCashPackageDTO dto) {
+        cbtsService.createCBTSCashPackage(dto);
+        return new ResponseEntity<>("CashPackage Created", HttpStatus.OK);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.cbts.entites;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -11,8 +13,7 @@ public class CBTSCashPackage {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @GeneratedValue
-    private UUID packageId;
+    private UUID packageId = UUID.randomUUID();
 
     @OneToOne(cascade = CascadeType.ALL)
     private Cash cash;
@@ -30,8 +31,7 @@ public class CBTSCashPackage {
     public CBTSCashPackage() {
     }
 
-    public CBTSCashPackage(UUID packageId, Cash cash, Bank receiver) {
-        this.packageId = packageId;
+    public CBTSCashPackage(Cash cash, Bank receiver) {
         this.cash = cash;
         this.receiver = receiver;
     }

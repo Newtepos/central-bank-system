@@ -1,6 +1,7 @@
 package com.example.cbts.service;
 
 import com.example.cbts.dto.BankDTO;
+import com.example.cbts.dto.CBTSCashPackageDTO;
 import com.example.cbts.dto.CashDTO;
 import com.example.cbts.dto.MoneyTruckDTO;
 import com.example.cbts.entites.*;
@@ -12,6 +13,7 @@ import com.example.cbts.repository.MoneyTruckRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,7 @@ public class UtilityService {
     @Autowired
     MoneyTruckRepository moneyTruckRepository;
 
+    //DTO Utility Function
     public Bank convertBankDtoToEntity(BankDTO bankDTO) {
         Bank bank = new Bank();
         Location location = new Location();
@@ -99,6 +102,20 @@ public class UtilityService {
         return moneyTruckDTO;
     }
 
+    public CBTSCashPackage covertCBTSCashPackageDtoToEntity(CBTSCashPackageDTO dto){
+        CBTSCashPackage cashPackage = new CBTSCashPackage();
+        Bank receiveBank = bankRepository.getById(dto.getBranchId());
+        Optional<Currency> currency = currencyRepository.findByCurrency(dto.getCurrency());
+        if(currency.isPresent()) {
+            Cash cash = new Cash(dto.getAmount(), currency.get());
+            cashPackage.setReceiver(receiveBank);
+            cashPackage.setCash(cash);
+        }
+        return cashPackage;
+    }
+
+
+    //Validator Utility Function
     public void validateBankExits(String name) {
         if(bankRepository.findByBankName(name).isPresent()){
             throw new DataAlreadyExitsException("Bank Already Exits");
@@ -123,4 +140,24 @@ public class UtilityService {
         }
     }
 
+    public void validateCenterBankFund(String currency, BigDecimal amount) {
+        Bank centralBank = bankRepository.getById(1L);
+        Optional<Currency> currencyQuery = currencyRepository.findByCurrency(currency);
+
+        if(currencyQuery.isEmpty()) {
+            throw new CannotFindDataException("Cannot find " + currency + " in currency CBTS system");
+        }
+
+        if(centralBank.getBalance().contains(currencyQuery)) {
+            throw new CannotFindDataException("Not Found Currency in CentralBank");
+        }
+
+        for(Cash cash: centralBank.getBalance()) {
+            if(cash.getCurrency().getCurrency().equals(currency)){
+                if(cash.getAmount().compareTo(amount) == -1) {
+                    throw new CannotFindDataException("Insufficient amount for " + currency);
+                }
+            }
+        }
+    }
 }

@@ -1,10 +1,12 @@
 package com.example.cbts.service;
 
 import com.example.cbts.dto.BankDTO;
+import com.example.cbts.dto.CBTSCashPackageDTO;
 import com.example.cbts.dto.CashDTO;
 import com.example.cbts.dto.MoneyTruckDTO;
 import com.example.cbts.entites.*;
 import com.example.cbts.repository.BankRepository;
+import com.example.cbts.repository.CBTSCashPackageRepository;
 import com.example.cbts.repository.CurrencyRepository;
 import com.example.cbts.repository.MoneyTruckRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class CBTSService {
 
     @Autowired
     UtilityService utilityService;
+
+    @Autowired
+    CBTSCashPackageRepository cbtsCashPackageRepository;
 
     public void createBank(BankDTO bankDTO) {
         //Validate Input
@@ -88,6 +93,13 @@ public class CBTSService {
        return utilityService.covertMoneyTruckEntityToDto(moneyTruckRepository.getById(id));
     }
 
+    public void createCBTSCashPackage(CBTSCashPackageDTO dto) {
+        //validate input
+        utilityService.bankNotFound(dto.getBranchId());
+        utilityService.validateCenterBankFund(dto.getCurrency(), dto.getAmount());
 
+        CBTSCashPackage cashPackage = utilityService.covertCBTSCashPackageDtoToEntity(dto);
+        cbtsCashPackageRepository.save(cashPackage);
+    }
 
 }
