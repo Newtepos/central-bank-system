@@ -46,4 +46,10 @@ public class CBTSController {
         return new ResponseEntity<>("Updated", HttpStatus.OK);
     }
 
+    @GetMapping("/money-truck/current")
+    public ResponseEntity<?> getAllMoneyTruckLocation() {
+        List<MoneyTruckDTO> result = cbtsService.getAllMoneyTruckLastLocation();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }

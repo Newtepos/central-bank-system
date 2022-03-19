@@ -72,4 +72,17 @@ public class CBTSService {
         moneyTruckRepository.save(moneyTruckDB);
     }
 
+    public List<MoneyTruckDTO> getAllMoneyTruckLastLocation() {
+        List<MoneyTruckDTO> moneyTruckDTOList = new ArrayList<>();
+        List<MoneyTruck> queryResult = moneyTruckRepository.findAll();
+        for(MoneyTruck moneyTruck: queryResult) {
+            MoneyTruckDTO moneyTruckDTO = utilityService.covertMoneyTruckEntityToDto(moneyTruck);
+            moneyTruckDTOList.add(moneyTruckDTO);
+        }
+
+        return moneyTruckDTOList;
+    }
+
+
+
 }

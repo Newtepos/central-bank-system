@@ -88,6 +88,17 @@ public class UtilityService {
         return moneyTruck;
     }
 
+    public MoneyTruckDTO covertMoneyTruckEntityToDto(MoneyTruck moneyTruck) {
+        MoneyTruckDTO moneyTruckDTO = new MoneyTruckDTO();
+        moneyTruckDTO.setTruckName(moneyTruck.getTruckName());
+        moneyTruckDTO.setId(moneyTruck.getId());
+        int lastLocation = moneyTruck.getLocations().size();
+        moneyTruckDTO.setLatitude(moneyTruck.getLocations().get(lastLocation-1).getLatitude());
+        moneyTruckDTO.setLongitude(moneyTruck.getLocations().get(lastLocation-1).getLongitude());
+        moneyTruckDTO.setTimestamp(moneyTruck.getLocations().get(lastLocation-1).getTimestamp());
+        return moneyTruckDTO;
+    }
+
     public void validateBankExits(String name) {
         if(bankRepository.findByBankName(name).isPresent()){
             throw new DataAlreadyExitsException("Bank Already Exits");

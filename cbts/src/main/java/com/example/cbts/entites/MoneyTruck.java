@@ -48,6 +48,8 @@ public class MoneyTruck {
         return truckName;
     }
 
+
+
     public void setTruckName(String truckName) {
         this.truckName = truckName;
     }
