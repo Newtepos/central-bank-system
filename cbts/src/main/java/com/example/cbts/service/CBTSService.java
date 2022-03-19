@@ -29,6 +29,9 @@ public class CBTSService {
     UtilityService utilityService;
 
     public void createBank(BankDTO bankDTO) {
+        //Validate Input
+        utilityService.validateBankExits(bankDTO.getBankName());
+
        Bank bank = utilityService.convertBankDtoToEntity(bankDTO);
         bankRepository.save(bank);
     }
