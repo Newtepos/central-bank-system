@@ -5,10 +5,7 @@ import com.example.cbts.service.CBTSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +24,12 @@ public class CBTSController {
     @GetMapping("/bank")
     public ResponseEntity<?> getAllBank() {
         List<BankDTO> result = cbtsService.getAllBank();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/bank/{id}")
+    public ResponseEntity<?> getBankById(@PathVariable long id) {
+        BankDTO result = cbtsService.getBankById(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

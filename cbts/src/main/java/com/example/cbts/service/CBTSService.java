@@ -38,6 +38,16 @@ public class CBTSService {
                 .collect(Collectors.toList());
     }
 
+    public BankDTO getBankById(Long id) {
+        Optional<Bank> queryResult = bankRepository.findById(id);
+        if(queryResult.isEmpty())
+        {
+
+        }
+
+        return this.convertBankEntityToDto(queryResult.get());
+    }
+
     private Bank convertBankDtoToEntity(BankDTO bankDTO) {
         Bank bank = new Bank();
         Location location = new Location();
@@ -77,6 +87,7 @@ public class CBTSService {
             cashDTO.setCurrency(cash.getCurrency().getCurrency());
             cashDTOList.add(cashDTO);
         }
+        bankDTO.setId(bank.getId());
         bankDTO.setBankName(bank.getBankName());
         bankDTO.setLatitude(bank.getLocation().getLatitude());
         bankDTO.setLongitude(bank.getLocation().getLongitude());
