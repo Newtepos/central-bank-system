@@ -4,10 +4,7 @@ import com.example.cbts.dto.*;
 import com.example.cbts.entites.*;
 import com.example.cbts.exception.CannotFindDataException;
 import com.example.cbts.exception.DataAlreadyExitsException;
-import com.example.cbts.repository.BankRepository;
-import com.example.cbts.repository.CBTSCashPackageRepository;
-import com.example.cbts.repository.CurrencyRepository;
-import com.example.cbts.repository.MoneyTruckRepository;
+import com.example.cbts.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +28,9 @@ public class UtilityService {
 
     @Autowired
     CBTSCashPackageRepository cbtsCashPackageRepository;
+
+    @Autowired
+    BBSCashPackageRepository bbsCashPackageRepository;
 
     //DTO Utility Function
     public Bank convertBankDtoToEntity(BankDTO bankDTO) {
@@ -227,6 +227,12 @@ public class UtilityService {
 
     public void validateCBTSCashPackage(UUID cashPackage) {
         if(cbtsCashPackageRepository.findByPackageId(cashPackage).isEmpty()) {
+            throw new CannotFindDataException("Cannot find CashPackage with " + cashPackage);
+        }
+    }
+
+    public void validateBBSCashPackage(UUID cashPackage) {
+        if(bbsCashPackageRepository.findByPackageId(cashPackage).isEmpty()) {
             throw new CannotFindDataException("Cannot find CashPackage with " + cashPackage);
         }
     }

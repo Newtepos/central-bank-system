@@ -89,4 +89,11 @@ public class CBTSController {
         return new ResponseEntity<>("Created BBS CashPackage", HttpStatus.OK);
     }
 
+    @PutMapping("/bbs-package/{packageId}")
+    public ResponseEntity<?> updateBBSCashPackage(@RequestBody DispatchActionRequest dto, @PathVariable String packageId) {
+        UUID convertedUUID = UUID.fromString(packageId);
+        cbtsService.updateBBSStatus(dto, convertedUUID);
+        return new ResponseEntity<>("Update CashPackage Completed", HttpStatus.OK);
+    }
+
 }

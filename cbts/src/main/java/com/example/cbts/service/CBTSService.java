@@ -152,6 +152,25 @@ public class CBTSService {
         bbsCashPackageRepository.save(cashPackage);
     }
 
+    public void updateBBSStatus(DispatchActionRequest dto, UUID packageId) {
+        //validate CBTSPackage
+        utilityService.validateBBSCashPackage(packageId);
+
+        BBSCashPackage queryResult = bbsCashPackageRepository.getByPackageId(packageId);
+
+        //dispatch action
+        if(dto.getMethod().equals("sent")) {
+            queryResult.setSendStatus(true);
+            queryResult.setSendTime(dto.getActionTime());
+        }
+
+        else if(dto.getMethod().equals("received")) {
+            queryResult.setReceiveStatus(true);
+            queryResult.setReceivedTime(dto.getActionTime());
+        }
+        bbsCashPackageRepository.save(queryResult);
+    }
+
 
 
 }
