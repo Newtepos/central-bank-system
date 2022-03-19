@@ -1,14 +1,19 @@
 package com.example.cbts.entites;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 public class MoneyTruck {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String truckName;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Location> locations;

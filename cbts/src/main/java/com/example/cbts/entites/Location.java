@@ -1,11 +1,15 @@
 package com.example.cbts.entites;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 
 @Entity
+@Data
 public class Location {
 
     @Id
@@ -14,6 +18,8 @@ public class Location {
 
     private double latitude;
     private double longitude;
+
+    private Timestamp timestamp;
 
     public Location() {
     }

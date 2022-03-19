@@ -1,6 +1,7 @@
 package com.example.cbts.controller;
 
 import com.example.cbts.dto.BankDTO;
+import com.example.cbts.dto.MoneyTruckDTO;
 import com.example.cbts.service.CBTSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,5 +32,11 @@ public class CBTSController {
     public ResponseEntity<?> getBankById(@PathVariable long id) {
         BankDTO result = cbtsService.getBankById(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/money-truck")
+    public ResponseEntity<?> createTruck(@RequestBody MoneyTruckDTO moneyTruckDTO) {
+       cbtsService.createMoneyTruck(moneyTruckDTO);
+        return new ResponseEntity<>("Created", HttpStatus.OK);
     }
 }

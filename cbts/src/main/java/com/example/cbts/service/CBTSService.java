@@ -2,12 +2,11 @@ package com.example.cbts.service;
 
 import com.example.cbts.dto.BankDTO;
 import com.example.cbts.dto.CashDTO;
-import com.example.cbts.entites.Bank;
-import com.example.cbts.entites.Cash;
-import com.example.cbts.entites.Currency;
-import com.example.cbts.entites.Location;
+import com.example.cbts.dto.MoneyTruckDTO;
+import com.example.cbts.entites.*;
 import com.example.cbts.repository.BankRepository;
 import com.example.cbts.repository.CurrencyRepository;
+import com.example.cbts.repository.MoneyTruckRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +24,9 @@ public class CBTSService {
 
     @Autowired
     CurrencyRepository currencyRepository;
+
+    @Autowired
+    MoneyTruckRepository moneyTruckRepository;
 
     public void createBank(BankDTO bankDTO) {
        Bank bank = this.convertBankDtoToEntity(bankDTO);
@@ -46,6 +48,11 @@ public class CBTSService {
         }
 
         return this.convertBankEntityToDto(queryResult.get());
+    }
+
+    public void createMoneyTruck(MoneyTruckDTO moneyTruckDTO) {
+        MoneyTruck moneyTruck = this.covertMoneyTruckDtoToEntity(moneyTruckDTO);
+        moneyTruckRepository.save(moneyTruck);
     }
 
     private Bank convertBankDtoToEntity(BankDTO bankDTO) {
@@ -93,5 +100,18 @@ public class CBTSService {
         bankDTO.setLongitude(bank.getLocation().getLongitude());
         bankDTO.setBalance(cashDTOList);
         return bankDTO;
+    }
+
+    private MoneyTruck covertMoneyTruckDtoToEntity(MoneyTruckDTO moneyTruckDTO) {
+        MoneyTruck moneyTruck = new MoneyTruck();
+        List<Location> locations = new ArrayList<>();
+        Location location = new Location();
+        location.setLatitude(moneyTruckDTO.getLatitude());
+        location.setLongitude(moneyTruckDTO.getLongitude());
+        location.setTimestamp(moneyTruckDTO.getTimestamp());
+        locations.add(location);
+        moneyTruck.setTruckName(moneyTruckDTO.getTruckName());
+        moneyTruck.setLocations(locations);
+        return moneyTruck;
     }
 }
