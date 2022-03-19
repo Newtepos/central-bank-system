@@ -29,6 +29,9 @@ public class CBTSService {
     @Autowired
     CBTSCashPackageRepository cbtsCashPackageRepository;
 
+    @Autowired
+    CoreBankingService coreBankingService;
+
     public void createBank(BankDTO bankDTO) {
         //Validate Input
         utilityService.validateBankExits(bankDTO.getBankName());
@@ -101,11 +104,18 @@ public class CBTSService {
     }
 
     public void updateCBTSStatus(DispatchActionRequest dto, UUID packageId) {
+        //validate CBTSPackage
+        utilityService.validateCBTSCashPackage(packageId);
+
         CBTSCashPackage queryResult = cbtsCashPackageRepository.getByPackageId(packageId);
+
         //dispatch action
         if(dto.getMethod().equals("sent")) {
             queryResult.setSendStatus(true);
             queryResult.setSendTime(dto.getActionTime());
+
+            //update Central Balance
+            coreBankingService.decreaseCentralBankBalance(queryResult);
         }
         else if(dto.getMethod().equals("received")) {
             queryResult.setReceiveStatus(true);

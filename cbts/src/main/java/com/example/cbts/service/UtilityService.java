@@ -8,6 +8,7 @@ import com.example.cbts.entites.*;
 import com.example.cbts.exception.CannotFindDataException;
 import com.example.cbts.exception.DataAlreadyExitsException;
 import com.example.cbts.repository.BankRepository;
+import com.example.cbts.repository.CBTSCashPackageRepository;
 import com.example.cbts.repository.CurrencyRepository;
 import com.example.cbts.repository.MoneyTruckRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UtilityService {
@@ -29,6 +31,9 @@ public class UtilityService {
 
     @Autowired
     MoneyTruckRepository moneyTruckRepository;
+
+    @Autowired
+    CBTSCashPackageRepository cbtsCashPackageRepository;
 
     //DTO Utility Function
     public Bank convertBankDtoToEntity(BankDTO bankDTO) {
@@ -186,6 +191,12 @@ public class UtilityService {
                     throw new CannotFindDataException("Insufficient amount for " + currency);
                 }
             }
+        }
+    }
+
+    public void validateCBTSCashPackage(UUID cashPackage) {
+        if(cbtsCashPackageRepository.findByPackageId(cashPackage).isEmpty()) {
+            throw new CannotFindDataException("Cannot find CashPackage with " + cashPackage);
         }
     }
 }
