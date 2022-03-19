@@ -7,6 +7,7 @@ import com.example.cbts.entites.*;
 import com.example.cbts.exception.DataAlreadyExitsException;
 import com.example.cbts.repository.BankRepository;
 import com.example.cbts.repository.CurrencyRepository;
+import com.example.cbts.repository.MoneyTruckRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class UtilityService {
 
     @Autowired
     BankRepository bankRepository;
+
+    @Autowired
+    MoneyTruckRepository moneyTruckRepository;
 
     public Bank convertBankDtoToEntity(BankDTO bankDTO) {
         Bank bank = new Bank();
@@ -88,4 +92,11 @@ public class UtilityService {
             throw new DataAlreadyExitsException("Bank Already Exits");
         }
     }
+
+    public void validateTruckExits(String name) {
+        if(moneyTruckRepository.findByTruckName(name).isPresent()) {
+            throw new DataAlreadyExitsException("MoneyTruck Already Exits");
+        }
+    }
+
 }

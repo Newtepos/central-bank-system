@@ -54,6 +54,9 @@ public class CBTSService {
     }
 
     public void createMoneyTruck(MoneyTruckDTO moneyTruckDTO) {
+        //Validate Input
+        utilityService.validateTruckExits(moneyTruckDTO.getTruckName());
+
         MoneyTruck moneyTruck = utilityService.covertMoneyTruckDtoToEntity(moneyTruckDTO);
         moneyTruckRepository.save(moneyTruck);
     }
