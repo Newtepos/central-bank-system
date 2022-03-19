@@ -111,7 +111,35 @@ public class UtilityService {
             cashPackage.setReceiver(receiveBank);
             cashPackage.setCash(cash);
         }
+        if(dto.getPackageId() != null) {
+            cashPackage.setPackageId(dto.getPackageId());
+        }
+        if(dto.getReceiveStatus() != null) {
+            cashPackage.setReceiveStatus(dto.getReceiveStatus());
+        }
+        if(dto.getSendStatus() != null) {
+            cashPackage.setSendStatus(dto.getSendStatus());
+        }
+        if(dto.getSentTime() != null) {
+            cashPackage.setSendTime(dto.getSentTime());
+        }
+        if(dto.getReceivedTime() != null) {
+            cashPackage.setReceivedTime(dto.getReceivedTime());
+        }
         return cashPackage;
+    }
+
+    public CBTSCashPackageDTO covertCBTSCashPackageEntityToDto(CBTSCashPackage cashPackage) {
+        CBTSCashPackageDTO cbtsCashPackageDTO = new CBTSCashPackageDTO();
+        cbtsCashPackageDTO.setPackageId(cashPackage.getPackageId());
+        cbtsCashPackageDTO.setAmount(cashPackage.getCash().getAmount());
+        cbtsCashPackageDTO.setCurrency(cashPackage.getCash().getCurrency().getCurrency());
+        cbtsCashPackageDTO.setBranchId(cashPackage.getReceiver().getId());
+        cbtsCashPackageDTO.setSendStatus(cashPackage.getSendStatus());
+        cbtsCashPackageDTO.setSentTime(cashPackage.getSendTime());
+        cbtsCashPackageDTO.setReceiveStatus(cashPackage.getReceiveStatus());
+        cbtsCashPackageDTO.setReceivedTime(cashPackage.getReceivedTime());
+        return cbtsCashPackageDTO;
     }
 
 

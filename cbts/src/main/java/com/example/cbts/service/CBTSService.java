@@ -102,4 +102,28 @@ public class CBTSService {
         cbtsCashPackageRepository.save(cashPackage);
     }
 
+    public void updateCBTSStatus(CBTSCashPackageDTO dto) {
+        CBTSCashPackage queryResult = cbtsCashPackageRepository.getByPackageId(dto.getPackageId());
+        //dispatch action
+        if(dto.getMethod().equals("sent")) {
+            queryResult.setSendStatus(true);
+            queryResult.setSendTime(dto.getActionTime());
+        }
+        else if(dto.getMethod().equals("received")) {
+            queryResult.setReceiveStatus(true);
+            queryResult.setReceivedTime(dto.getActionTime());
+        }
+        cbtsCashPackageRepository.save(queryResult);
+    }
+
+    public List<CBTSCashPackageDTO> getAllCBTSCashPackage() {
+        List<CBTSCashPackageDTO> cbtsCashPackageDTOS = new ArrayList<>();
+        List<CBTSCashPackage> queryResult = cbtsCashPackageRepository.findAll();
+        for(CBTSCashPackage cashPackage: queryResult) {
+            cbtsCashPackageDTOS.add(utilityService.covertCBTSCashPackageEntityToDto(cashPackage));
+        }
+
+        return cbtsCashPackageDTOS;
+    }
+
 }

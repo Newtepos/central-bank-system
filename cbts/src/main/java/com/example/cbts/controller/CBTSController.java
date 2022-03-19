@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class CBTSController {
@@ -63,6 +64,20 @@ public class CBTSController {
     public ResponseEntity<?> createCBTSCashPackage(@RequestBody CBTSCashPackageDTO dto) {
         cbtsService.createCBTSCashPackage(dto);
         return new ResponseEntity<>("CashPackage Created", HttpStatus.OK);
+    }
+
+    @PutMapping("/cbts-package/{packageId}")
+    public ResponseEntity<?> updateCBTSCashPackage(@RequestBody CBTSCashPackageDTO dto, @PathVariable String packageId) {
+        UUID convertedUUID = UUID.fromString(packageId);
+        dto.setPackageId(convertedUUID);
+        cbtsService.updateCBTSStatus(dto);
+        return new ResponseEntity<>("Update CashPackage Completed", HttpStatus.OK);
+    }
+
+    @GetMapping("/cbts-package")
+    public ResponseEntity<?> getAllCBTSCashPackage() {
+        List<CBTSCashPackageDTO> result = cbtsService.getAllCBTSCashPackage();
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }
