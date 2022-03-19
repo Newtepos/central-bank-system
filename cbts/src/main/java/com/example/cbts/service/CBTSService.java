@@ -61,7 +61,7 @@ public class CBTSService {
 
     public void updateMoneyTruckLocation(MoneyTruckDTO moneyTruckDTO) {
         //Validate Input
-        utilityService.MoneyTruckNotFound(moneyTruckDTO.getId());
+        utilityService.moneyTruckNotFound(moneyTruckDTO.getId());
 
         MoneyTruck moneyTruckDB = moneyTruckRepository.getById(moneyTruckDTO.getId());
         Location location = new Location();
@@ -81,6 +81,13 @@ public class CBTSService {
         }
 
         return moneyTruckDTOList;
+    }
+
+    public MoneyTruckDTO getMoneyTruckLocationById(long id) {
+        //validate input id
+        utilityService.moneyTruckNotFound(id);
+
+       return utilityService.covertMoneyTruckEntityToDto(moneyTruckRepository.getById(id));
     }
 
 

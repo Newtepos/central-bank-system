@@ -52,4 +52,10 @@ public class CBTSController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("money-truck/{id}/current")
+    public ResponseEntity<?> getMoneyTruckRecentLocationById(@PathVariable long id) {
+        MoneyTruckDTO result = cbtsService.getMoneyTruckLocationById(id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }

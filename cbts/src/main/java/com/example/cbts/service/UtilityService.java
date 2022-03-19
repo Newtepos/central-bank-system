@@ -117,7 +117,7 @@ public class UtilityService {
         }
     }
 
-    public void MoneyTruckNotFound(Long id) {
+    public void moneyTruckNotFound(Long id) {
         if(moneyTruckRepository.findById(id).isEmpty()) {
             throw new CannotFindDataException("Cannot find MoneyTruck with ID:" + id);
         }
