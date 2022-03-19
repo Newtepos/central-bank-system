@@ -23,20 +23,20 @@ public class CBTSService {
     BankRepository bankRepository;
 
     @Autowired
-    CurrencyRepository currencyRepository;
-
-    @Autowired
     MoneyTruckRepository moneyTruckRepository;
 
+    @Autowired
+    UtilityService utilityService;
+
     public void createBank(BankDTO bankDTO) {
-       Bank bank = this.convertBankDtoToEntity(bankDTO);
+       Bank bank = utilityService.convertBankDtoToEntity(bankDTO);
         bankRepository.save(bank);
     }
 
     public List<BankDTO> getAllBank() {
         return bankRepository.findAll()
                 .stream()
-                .map(this::convertBankEntityToDto)
+                .map(bank -> utilityService.convertBankEntityToDto(bank))
                 .collect(Collectors.toList());
     }
 
@@ -47,71 +47,12 @@ public class CBTSService {
 
         }
 
-        return this.convertBankEntityToDto(queryResult.get());
+        return utilityService.convertBankEntityToDto(queryResult.get());
     }
 
     public void createMoneyTruck(MoneyTruckDTO moneyTruckDTO) {
-        MoneyTruck moneyTruck = this.covertMoneyTruckDtoToEntity(moneyTruckDTO);
+        MoneyTruck moneyTruck = utilityService.covertMoneyTruckDtoToEntity(moneyTruckDTO);
         moneyTruckRepository.save(moneyTruck);
     }
 
-    private Bank convertBankDtoToEntity(BankDTO bankDTO) {
-        Bank bank = new Bank();
-        Location location = new Location();
-        List<Cash> cashList = new ArrayList<>();
-        for(CashDTO cashDTO: bankDTO.getBalance()) {
-            Cash cash = new Cash();
-
-            Optional<Currency> currency = currencyRepository.findByCurrency(cashDTO.getCurrency());
-            if(currency.isPresent()) {
-                cash.setCurrency(currency.get());
-            }
-            else
-            {
-                Currency currency1 = new Currency();
-                currency1.setCurrency(cashDTO.getCurrency());
-                cash.setCurrency(currency1);
-            }
-
-            cash.setAmount(cashDTO.getAmount());
-            cashList.add(cash);
-        }
-        location.setLatitude(bankDTO.getLatitude());
-        location.setLongitude(bankDTO.getLongitude());
-        bank.setBankName(bankDTO.getBankName());
-        bank.setLocation(location);
-        bank.setBalance(cashList);
-
-        return bank;
-    }
-
-    private BankDTO convertBankEntityToDto(Bank bank) {
-        BankDTO bankDTO = new BankDTO();
-        List<CashDTO> cashDTOList = new ArrayList<>();
-        for(Cash cash: bank.getBalance()) {
-            CashDTO cashDTO = new CashDTO();
-            cashDTO.setAmount(cash.getAmount());
-            cashDTO.setCurrency(cash.getCurrency().getCurrency());
-            cashDTOList.add(cashDTO);
-        }
-        bankDTO.setId(bank.getId());
-        bankDTO.setBankName(bank.getBankName());
-        bankDTO.setLatitude(bank.getLocation().getLatitude());
-        bankDTO.setLongitude(bank.getLocation().getLongitude());
-        bankDTO.setBalance(cashDTOList);
-        return bankDTO;
-    }
-
-    private MoneyTruck covertMoneyTruckDtoToEntity(MoneyTruckDTO moneyTruckDTO) {
-        MoneyTruck moneyTruck = new MoneyTruck();
-        List<Location> locations = new ArrayList<>();
-        Location location = new Location();
-        location.setLatitude(moneyTruckDTO.getLatitude());
-        location.setLongitude(moneyTruckDTO.getLongitude());
-        location.setTimestamp(moneyTruckDTO.getTimestamp());
-        locations.add(location);
-        moneyTruck.setTruckName(moneyTruckDTO.getTruckName());
-        moneyTruck.setLocations(locations);
-        return moneyTruck;
-    }
 }
