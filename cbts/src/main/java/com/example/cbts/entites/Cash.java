@@ -12,7 +12,7 @@ public class Cash {
 
     private BigDecimal amount;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Currency currency;
 
     public Cash() {

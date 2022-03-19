@@ -12,20 +12,20 @@ public class Currency {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String Currency;
+    private String currency;
 
     public Currency() {
     }
 
     public Currency(String currency) {
-        Currency = currency;
+        this.currency = currency;
     }
 
     public String getCurrency() {
-        return Currency;
+        return currency;
     }
 
     public void setCurrency(String currency) {
-        Currency = currency;
+        this.currency = currency;
     }
 }
