@@ -21,8 +21,8 @@ public class CBTSControllerAdvice {
 
     @ExceptionHandler(CannotFindDataException.class)
     @ResponseBody
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public CBTSResponse dataNotFound(CannotFindDataException e) {
-        return new CBTSResponse(204, e.getMessage());
+        return new CBTSResponse(404, e.getMessage());
     }
 }

@@ -4,6 +4,7 @@ import com.example.cbts.dto.BankDTO;
 import com.example.cbts.dto.CashDTO;
 import com.example.cbts.dto.MoneyTruckDTO;
 import com.example.cbts.entites.*;
+import com.example.cbts.exception.CannotFindDataException;
 import com.example.cbts.exception.DataAlreadyExitsException;
 import com.example.cbts.repository.BankRepository;
 import com.example.cbts.repository.CurrencyRepository;
@@ -96,6 +97,12 @@ public class UtilityService {
     public void validateTruckExits(String name) {
         if(moneyTruckRepository.findByTruckName(name).isPresent()) {
             throw new DataAlreadyExitsException("MoneyTruck Already Exits");
+        }
+    }
+
+    public void bankNotFound(long id) {
+        if(bankRepository.findById(id).isEmpty()) {
+            throw new CannotFindDataException("Cannot find Bank with ID:" + id);
         }
     }
 

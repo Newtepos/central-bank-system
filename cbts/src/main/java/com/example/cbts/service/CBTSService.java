@@ -44,13 +44,11 @@ public class CBTSService {
     }
 
     public BankDTO getBankById(Long id) {
-        Optional<Bank> queryResult = bankRepository.findById(id);
-        if(queryResult.isEmpty())
-        {
+        //validate Input
+        utilityService.bankNotFound(id);
 
-        }
-
-        return utilityService.convertBankEntityToDto(queryResult.get());
+        Bank queryResult = bankRepository.getById(id);
+        return utilityService.convertBankEntityToDto(queryResult);
     }
 
     public void createMoneyTruck(MoneyTruckDTO moneyTruckDTO) {
@@ -69,7 +67,6 @@ public class CBTSService {
         location.setTimestamp(moneyTruckDTO.getTimestamp());
         moneyTruckDB.addLocation(location);
         moneyTruckRepository.save(moneyTruckDB);
-
     }
 
 }
