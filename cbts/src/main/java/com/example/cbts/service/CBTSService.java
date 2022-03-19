@@ -60,6 +60,9 @@ public class CBTSService {
     }
 
     public void updateMoneyTruckLocation(MoneyTruckDTO moneyTruckDTO) {
+        //Validate Input
+        utilityService.MoneyTruckNotFound(moneyTruckDTO.getId());
+
         MoneyTruck moneyTruckDB = moneyTruckRepository.getById(moneyTruckDTO.getId());
         Location location = new Location();
         location.setLatitude(moneyTruckDTO.getLatitude());
