@@ -8,7 +8,7 @@ public class Bank {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private Long id;
 
     private Long cbtsKey;
 
@@ -31,11 +31,11 @@ public class Bank {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        id = id;
     }
 
     public String getBankName() {

@@ -14,7 +14,7 @@ public class CBTSCashPackage {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private UUID packageID;
+    private UUID packageId;
 
     private Boolean sendStatus = false;
     private Boolean receiveStatus = false;
@@ -27,7 +27,7 @@ public class CBTSCashPackage {
     }
 
     public CBTSCashPackage(UUID packageID) {
-        this.packageID = packageID;
+        this.packageId = packageID;
     }
 
     public Long getId() {
@@ -39,11 +39,11 @@ public class CBTSCashPackage {
     }
 
     public UUID getPackageID() {
-        return packageID;
+        return packageId;
     }
 
     public void setPackageID(UUID packageID) {
-        this.packageID = packageID;
+        this.packageId = packageID;
     }
 
     public Boolean getSendStatus() {

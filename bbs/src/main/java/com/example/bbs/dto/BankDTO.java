@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class bankDTO {
+public class BankDTO {
 
     private Long cbtsKey;
     private String bankName;
