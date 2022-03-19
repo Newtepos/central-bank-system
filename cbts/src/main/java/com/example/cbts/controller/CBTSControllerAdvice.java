@@ -1,5 +1,6 @@
 package com.example.cbts.controller;
 
+import com.example.cbts.exception.CannotFindDataException;
 import com.example.cbts.exception.DataAlreadyExitsException;
 import com.example.cbts.response.CBTSResponse;
 import org.springframework.http.HttpStatus;
@@ -16,5 +17,12 @@ public class CBTSControllerAdvice {
     @ResponseStatus(HttpStatus.CONFLICT)
     public CBTSResponse dataExits(DataAlreadyExitsException e) {
         return new CBTSResponse(404, e.getMessage());
+    }
+
+    @ExceptionHandler(CannotFindDataException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public CBTSResponse dataNotFound(CannotFindDataException e) {
+        return new CBTSResponse(204, e.getMessage());
     }
 }
