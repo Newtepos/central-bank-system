@@ -1,9 +1,6 @@
 package com.example.cbts.controller;
 
-import com.example.cbts.dto.BankDTO;
-import com.example.cbts.dto.CBTSCashPackageDTO;
-import com.example.cbts.dto.DispatchActionRequest;
-import com.example.cbts.dto.MoneyTruckDTO;
+import com.example.cbts.dto.*;
 import com.example.cbts.service.CBTSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -78,6 +75,18 @@ public class CBTSController {
     public ResponseEntity<?> getAllCBTSCashPackage() {
         List<CBTSCashPackageDTO> result = cbtsService.getAllCBTSCashPackage();
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/bbs-package")
+    public ResponseEntity<?> getAllBBSCashPackage() {
+        List<BBSCashPackageDTO> result = cbtsService.getAllBBSCashPackage();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/bbs-package")
+    public ResponseEntity<?> createBBSCashPackage(@RequestBody BBSCashPackageDTO dto) {
+        cbtsService.createBBSCashPackage(dto);
+        return new ResponseEntity<>("Created BBS CashPackage", HttpStatus.OK);
     }
 
 }

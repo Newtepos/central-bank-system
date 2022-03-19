@@ -2,10 +2,7 @@ package com.example.cbts.service;
 
 import com.example.cbts.dto.*;
 import com.example.cbts.entites.*;
-import com.example.cbts.repository.BankRepository;
-import com.example.cbts.repository.CBTSCashPackageRepository;
-import com.example.cbts.repository.CurrencyRepository;
-import com.example.cbts.repository.MoneyTruckRepository;
+import com.example.cbts.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +25,9 @@ public class CBTSService {
 
     @Autowired
     CBTSCashPackageRepository cbtsCashPackageRepository;
+
+    @Autowired
+    BBSCashPackageRepository bbsCashPackageRepository;
 
     @Autowired
     CoreBankingService coreBankingService;
@@ -133,5 +133,25 @@ public class CBTSService {
 
         return cbtsCashPackageDTOS;
     }
+
+    public List<BBSCashPackageDTO> getAllBBSCashPackage() {
+        List<BBSCashPackageDTO> bbsCashPackageDTOS = new ArrayList<>();
+        List<BBSCashPackage> queryResult = bbsCashPackageRepository.findAll();
+        for(BBSCashPackage cashPackage: queryResult) {
+            bbsCashPackageDTOS.add(utilityService.covertBBSCashPackageEntityToDto(cashPackage));
+        }
+
+        return bbsCashPackageDTOS;
+    }
+
+    public void createBBSCashPackage(BBSCashPackageDTO dto) {
+        //validate input
+        utilityService.bankNotFound(dto.getBranchId());
+
+        BBSCashPackage cashPackage = utilityService.covertBBSCashPackageDtoToEntity(dto);
+        bbsCashPackageRepository.save(cashPackage);
+    }
+
+
 
 }

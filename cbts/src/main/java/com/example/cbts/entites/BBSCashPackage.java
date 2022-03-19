@@ -19,7 +19,7 @@ public class BBSCashPackage {
     private Boolean sendStatus;
     private Boolean receiveStatus;
 
-    private Timestamp createdTime;
+    private Timestamp createdTime = new Timestamp(System.currentTimeMillis());
     private Timestamp sendTime;
     private Timestamp receivedTime;
 

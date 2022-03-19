@@ -1,9 +1,6 @@
 package com.example.cbts.service;
 
-import com.example.cbts.dto.BankDTO;
-import com.example.cbts.dto.CBTSCashPackageDTO;
-import com.example.cbts.dto.CashDTO;
-import com.example.cbts.dto.MoneyTruckDTO;
+import com.example.cbts.dto.*;
 import com.example.cbts.entites.*;
 import com.example.cbts.exception.CannotFindDataException;
 import com.example.cbts.exception.DataAlreadyExitsException;
@@ -145,6 +142,40 @@ public class UtilityService {
         cbtsCashPackageDTO.setReceiveStatus(cashPackage.getReceiveStatus());
         cbtsCashPackageDTO.setReceivedTime(cashPackage.getReceivedTime());
         return cbtsCashPackageDTO;
+    }
+
+    public BBSCashPackage covertBBSCashPackageDtoToEntity(BBSCashPackageDTO bbsCashPackageDTO) {
+        BBSCashPackage cashPackage = new BBSCashPackage();
+        cashPackage.setPackageId(bbsCashPackageDTO.getPackageId());
+
+        Bank senderBank = bankRepository.getById(bbsCashPackageDTO.getBranchId());
+
+        cashPackage.setSender(senderBank);
+
+        if(bbsCashPackageDTO.getReceiveStatus() != null) {
+            cashPackage.setReceiveStatus(bbsCashPackageDTO.getReceiveStatus());
+        }
+        if(bbsCashPackageDTO.getSendStatus() != null) {
+            cashPackage.setSendStatus(bbsCashPackageDTO.getSendStatus());
+        }
+        if(bbsCashPackageDTO.getSentTime() != null) {
+            cashPackage.setSendTime(bbsCashPackageDTO.getSentTime());
+        }
+        if(bbsCashPackageDTO.getReceivedTime() != null) {
+            cashPackage.setReceivedTime(bbsCashPackageDTO.getReceivedTime());
+        }
+        return cashPackage;
+    }
+
+    public BBSCashPackageDTO covertBBSCashPackageEntityToDto(BBSCashPackage cashPackage) {
+        BBSCashPackageDTO bbsCashPackageDTO = new BBSCashPackageDTO();
+        bbsCashPackageDTO.setPackageId(cashPackage.getPackageId());
+        bbsCashPackageDTO.setBranchId(cashPackage.getSender().getId());
+        bbsCashPackageDTO.setSendStatus(cashPackage.getSendStatus());
+        bbsCashPackageDTO.setSentTime(cashPackage.getSendTime());
+        bbsCashPackageDTO.setReceiveStatus(cashPackage.getReceiveStatus());
+        bbsCashPackageDTO.setReceivedTime(cashPackage.getReceivedTime());
+        return bbsCashPackageDTO;
     }
 
 
