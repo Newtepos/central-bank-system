@@ -16,6 +16,4 @@ public class CBTSCashPackageDTO {
     private Boolean receiveStatus;
     private Timestamp receivedTime;
     private Timestamp sentTime;
-    private String method;
-    private Timestamp actionTime;
 }

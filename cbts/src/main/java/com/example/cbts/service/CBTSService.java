@@ -1,9 +1,6 @@
 package com.example.cbts.service;
 
-import com.example.cbts.dto.BankDTO;
-import com.example.cbts.dto.CBTSCashPackageDTO;
-import com.example.cbts.dto.CashDTO;
-import com.example.cbts.dto.MoneyTruckDTO;
+import com.example.cbts.dto.*;
 import com.example.cbts.entites.*;
 import com.example.cbts.repository.BankRepository;
 import com.example.cbts.repository.CBTSCashPackageRepository;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -102,8 +100,8 @@ public class CBTSService {
         cbtsCashPackageRepository.save(cashPackage);
     }
 
-    public void updateCBTSStatus(CBTSCashPackageDTO dto) {
-        CBTSCashPackage queryResult = cbtsCashPackageRepository.getByPackageId(dto.getPackageId());
+    public void updateCBTSStatus(DispatchActionRequest dto, UUID packageId) {
+        CBTSCashPackage queryResult = cbtsCashPackageRepository.getByPackageId(packageId);
         //dispatch action
         if(dto.getMethod().equals("sent")) {
             queryResult.setSendStatus(true);

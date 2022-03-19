@@ -2,6 +2,7 @@ package com.example.cbts.controller;
 
 import com.example.cbts.dto.BankDTO;
 import com.example.cbts.dto.CBTSCashPackageDTO;
+import com.example.cbts.dto.DispatchActionRequest;
 import com.example.cbts.dto.MoneyTruckDTO;
 import com.example.cbts.service.CBTSService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,10 +68,9 @@ public class CBTSController {
     }
 
     @PutMapping("/cbts-package/{packageId}")
-    public ResponseEntity<?> updateCBTSCashPackage(@RequestBody CBTSCashPackageDTO dto, @PathVariable String packageId) {
+    public ResponseEntity<?> updateCBTSCashPackage(@RequestBody DispatchActionRequest dto, @PathVariable String packageId) {
         UUID convertedUUID = UUID.fromString(packageId);
-        dto.setPackageId(convertedUUID);
-        cbtsService.updateCBTSStatus(dto);
+        cbtsService.updateCBTSStatus(dto, convertedUUID);
         return new ResponseEntity<>("Update CashPackage Completed", HttpStatus.OK);
     }
 
