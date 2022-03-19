@@ -55,4 +55,15 @@ public class CBTSService {
         moneyTruckRepository.save(moneyTruck);
     }
 
+    public void updateMoneyTruckLocation(MoneyTruckDTO moneyTruckDTO) {
+        MoneyTruck moneyTruckDB = moneyTruckRepository.getById(moneyTruckDTO.getId());
+        Location location = new Location();
+        location.setLatitude(moneyTruckDTO.getLatitude());
+        location.setLongitude(moneyTruckDTO.getLongitude());
+        location.setTimestamp(moneyTruckDTO.getTimestamp());
+        moneyTruckDB.addLocation(location);
+        moneyTruckRepository.save(moneyTruckDB);
+
+    }
+
 }

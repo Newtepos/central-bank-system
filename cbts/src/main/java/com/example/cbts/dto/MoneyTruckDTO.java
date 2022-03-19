@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 
 @Data
 public class MoneyTruckDTO {
+    private long id;
     private String truckName;
     private double latitude;
     private double longitude;

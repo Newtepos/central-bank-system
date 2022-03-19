@@ -39,4 +39,11 @@ public class CBTSController {
        cbtsService.createMoneyTruck(moneyTruckDTO);
         return new ResponseEntity<>("Created", HttpStatus.OK);
     }
+
+    @PutMapping("/money-truck")
+    public ResponseEntity<?> updateTruck(@RequestBody MoneyTruckDTO moneyTruckDTO) {
+        cbtsService.updateMoneyTruckLocation(moneyTruckDTO);
+        return new ResponseEntity<>("Updated", HttpStatus.OK);
+    }
+
 }

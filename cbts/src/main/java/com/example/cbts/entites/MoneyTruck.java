@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
 public class MoneyTruck {
 
     @Id
@@ -39,5 +38,17 @@ public class MoneyTruck {
 
     public void setLocations(List<Location> locations) {
         this.locations = locations;
+    }
+
+    public void addLocation(Location location) {
+        this.locations.add(location);
+    }
+
+    public String getTruckName() {
+        return truckName;
+    }
+
+    public void setTruckName(String truckName) {
+        this.truckName = truckName;
     }
 }

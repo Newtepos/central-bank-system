@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import java.sql.Timestamp;
 
 @Entity
-@Data
 public class Location {
 
     @Id
@@ -20,7 +19,6 @@ public class Location {
     private double longitude;
 
     private Timestamp timestamp;
-
     public Location() {
     }
 
@@ -43,5 +41,13 @@ public class Location {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }
