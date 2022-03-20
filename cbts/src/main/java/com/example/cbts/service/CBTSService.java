@@ -189,6 +189,9 @@ public class CBTSService {
         else if(dto.getMethod().equals("received")) {
             queryResult.setReceiveStatus(true);
             queryResult.setReceivedTime(dto.getActionTime());
+
+            //update Central Balance
+            coreBankingService.increaseCentralBankBalance(queryResult);
         }
         bbsCashPackageRepository.save(queryResult);
     }
