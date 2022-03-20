@@ -12,7 +12,7 @@ public class BBSCashPackage {
 
     private UUID packageId = UUID.randomUUID();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Cash cash;
 
     @ManyToOne

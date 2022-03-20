@@ -1,5 +1,6 @@
 package com.example.bbs.controller;
 
+import com.example.bbs.dto.BBSCashPackageDTO;
 import com.example.bbs.dto.BankDTO;
 import com.example.bbs.service.BBSService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,11 @@ public class BBSController {
     public ResponseEntity<?> createBrandBank(@RequestBody BankDTO bankDTO) {
         bbsService.createBranchBank(bankDTO);
         return new ResponseEntity<>("Branch-Bank Created", HttpStatus.OK);
+    }
+
+    @PostMapping("/bbs-package")
+    public ResponseEntity<?> createBBSPackage(@RequestBody BBSCashPackageDTO bbsCashPackageDTO) {
+        bbsService.createBBSCashPackage(bbsCashPackageDTO);
+        return new ResponseEntity<>("Package Created", HttpStatus.OK);
     }
 }

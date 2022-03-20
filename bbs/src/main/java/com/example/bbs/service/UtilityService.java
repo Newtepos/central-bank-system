@@ -1,11 +1,9 @@
 package com.example.bbs.service;
 
+import com.example.bbs.dto.BBSCashPackageDTO;
 import com.example.bbs.dto.BankDTO;
 import com.example.bbs.dto.CashDTO;
-import com.example.bbs.entites.Bank;
-import com.example.bbs.entites.Cash;
-import com.example.bbs.entites.Currency;
-import com.example.bbs.entites.Location;
+import com.example.bbs.entites.*;
 import com.example.bbs.exception.DataAlreadyExitsException;
 import com.example.bbs.repository.BankRepository;
 import com.example.bbs.repository.CurrencyRepository;
@@ -58,6 +56,33 @@ public class UtilityService {
         bank.setUrl(dto.getUrl());
 
         return bank;
+    }
+
+    public BBSCashPackage covertBBSCashPackageDtoToEntity(BBSCashPackageDTO dto){
+        BBSCashPackage cashPackage = new BBSCashPackage();
+        Bank receiveBank = bankRepository.getById(dto.getBranchId());
+        Optional<Currency> currency = currencyRepository.findByCurrency(dto.getCurrency());
+        if(currency.isPresent()) {
+            Cash cash = new Cash(dto.getAmount(), currency.get());
+            cashPackage.setSender(receiveBank);
+            cashPackage.setCash(cash);
+        }
+        if(dto.getPackageId() != null) {
+            cashPackage.setPackageId(dto.getPackageId());
+        }
+        if(dto.getReceiveStatus() != null) {
+            cashPackage.setReceiveStatus(dto.getReceiveStatus());
+        }
+        if(dto.getSendStatus() != null) {
+            cashPackage.setSendStatus(dto.getSendStatus());
+        }
+        if(dto.getSentTime() != null) {
+            cashPackage.setSendTime(dto.getSentTime());
+        }
+        if(dto.getReceivedTime() != null) {
+            cashPackage.setReceivedTime(dto.getReceivedTime());
+        }
+        return cashPackage;
     }
 
     //Validator
