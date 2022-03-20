@@ -4,6 +4,7 @@ import com.example.bbs.BBSGateway;
 import com.example.bbs.dto.BBSCashPackageDTO;
 import com.example.bbs.dto.BankDTO;
 import com.example.bbs.dto.CBTSCashPackageDTO;
+import com.example.bbs.dto.CashDTO;
 import com.example.bbs.entites.BBSCashPackage;
 import com.example.bbs.repository.BBSCashPackageRepository;
 import com.example.bbs.repository.BankRepository;
@@ -49,5 +50,14 @@ public class BBSService {
 
     public void createCBTSCashPackage(CBTSCashPackageDTO dto) {
         cbtsCashPackageRepository.save(utilityService.covertCBTSCashPackageDtoToEntity(dto));
+    }
+
+    public CashDTO readBBSCashPackage(UUID packageId) {
+        CashDTO cashDTO = new CashDTO();
+        BBSCashPackage query = bbsCashPackageRepository.getByPackageId(packageId);
+        cashDTO.setAmount(query.getCash().getAmount());
+        cashDTO.setCurrency(query.getCash().getCurrency().getCurrency());
+
+        return cashDTO;
     }
 }

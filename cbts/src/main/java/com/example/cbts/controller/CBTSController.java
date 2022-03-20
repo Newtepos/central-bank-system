@@ -1,5 +1,6 @@
 package com.example.cbts.controller;
 
+import com.example.cbts.CBTSGateway;
 import com.example.cbts.dto.*;
 import com.example.cbts.service.CBTSService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class CBTSController {
 
     @Autowired
     CBTSService cbtsService;
+
+    @Autowired
+    CBTSGateway cbtsGateway;
 
     @PostMapping("/bank")
     public ResponseEntity<?> createBank(@RequestBody BankDTO bankDTO) {
@@ -94,6 +98,13 @@ public class CBTSController {
         UUID convertedUUID = UUID.fromString(packageId);
         cbtsService.updateBBSStatus(dto, convertedUUID);
         return new ResponseEntity<>("Update CashPackage Completed", HttpStatus.OK);
+    }
+
+    @GetMapping("/bbs-package/{packageId}")
+    public ResponseEntity<?> readBBSPackage(@PathVariable String packageId) {
+        UUID convertedUUID = UUID.fromString(packageId);
+        CashDTO result = cbtsGateway.readBBSPackage(convertedUUID);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }
