@@ -192,4 +192,12 @@ public class CBTSService {
         }
         bbsCashPackageRepository.save(queryResult);
     }
+
+    public CashDTO readCBTSPackage(UUID packageId) {
+        CashDTO cashDTO = new CashDTO();
+        CBTSCashPackage query = cbtsCashPackageRepository.getByPackageId(packageId);
+        cashDTO.setAmount(query.getCash().getAmount());
+        cashDTO.setCurrency(query.getCash().getCurrency().getCurrency());
+        return cashDTO;
+    }
 }

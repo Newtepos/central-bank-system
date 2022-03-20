@@ -107,4 +107,11 @@ public class CBTSController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/cbts-package/{packageId}")
+    public ResponseEntity<?> readCashBBS(@PathVariable String packageId ){
+        UUID convertedUUID = UUID.fromString(packageId);
+        CashDTO result = cbtsService.readCBTSPackage(convertedUUID);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }

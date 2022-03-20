@@ -1,5 +1,6 @@
 package com.example.bbs.controller;
 
+import com.example.bbs.BBSGateway;
 import com.example.bbs.dto.BBSCashPackageDTO;
 import com.example.bbs.dto.BankDTO;
 import com.example.bbs.dto.CBTSCashPackageDTO;
@@ -17,6 +18,9 @@ public class BBSController {
 
     @Autowired
     BBSService bbsService;
+
+    @Autowired
+    BBSGateway bbsGateway;
 
     @PostMapping("/bank")
     public ResponseEntity<?> createBrandBank(@RequestBody BankDTO bankDTO) {
@@ -40,6 +44,13 @@ public class BBSController {
     public ResponseEntity<?> readCashBBS(@PathVariable String packageId ){
         UUID convertedUUID = UUID.fromString(packageId);
         CashDTO result = bbsService.readBBSCashPackage(convertedUUID);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/cbts-package/{packageId}")
+    public ResponseEntity<?> readBBSPackage(@PathVariable String packageId) {
+        UUID convertedUUID = UUID.fromString(packageId);
+        CashDTO result = bbsGateway.readCBTSPackage(convertedUUID);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
