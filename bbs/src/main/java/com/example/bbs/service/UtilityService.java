@@ -60,11 +60,11 @@ public class UtilityService {
 
     public BBSCashPackage covertBBSCashPackageDtoToEntity(BBSCashPackageDTO dto){
         BBSCashPackage cashPackage = new BBSCashPackage();
-        Bank receiveBank = bankRepository.getById(dto.getBranchId());
+        Bank senderBank = bankRepository.getByCbtsKey(dto.getBranchId());
         Optional<Currency> currency = currencyRepository.findByCurrency(dto.getCurrency());
         if(currency.isPresent()) {
             Cash cash = new Cash(dto.getAmount(), currency.get());
-            cashPackage.setSender(receiveBank);
+            cashPackage.setSender(senderBank);
             cashPackage.setCash(cash);
         }
         if(dto.getPackageId() != null) {

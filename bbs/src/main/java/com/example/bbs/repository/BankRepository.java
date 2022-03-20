@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface BankRepository extends JpaRepository<Bank, Long> {
     Optional<Bank> findByBankName(String bankName);
     Optional<Bank> findByCbtsKey(Long key);
+    Bank getByCbtsKey(Long key);
 }
