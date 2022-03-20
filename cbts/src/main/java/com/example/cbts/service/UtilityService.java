@@ -59,6 +59,7 @@ public class UtilityService {
         bank.setBankName(bankDTO.getBankName());
         bank.setLocation(location);
         bank.setBalance(cashList);
+        bank.setUrl(bankDTO.getUrl());
 
         return bank;
     }

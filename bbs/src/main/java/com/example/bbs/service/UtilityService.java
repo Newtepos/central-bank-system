@@ -54,8 +54,8 @@ public class UtilityService {
             cash.setCurrency(currencyDTO);
             cashList.add(cash);
         }
-
         bank.setBalance(cashList);
+        bank.setUrl(dto.getUrl());
 
         return bank;
     }

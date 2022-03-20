@@ -1,5 +1,6 @@
 package com.example.cbts.service;
 
+import com.example.cbts.CBTSGateway;
 import com.example.cbts.dto.*;
 import com.example.cbts.entites.*;
 import com.example.cbts.repository.*;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -32,12 +34,27 @@ public class CBTSService {
     @Autowired
     CoreBankingService coreBankingService;
 
+    @Autowired
+    CBTSGateway cbtsGateway;
+
     public void createBank(BankDTO bankDTO) {
         //Validate Input
         utilityService.validateBankExits(bankDTO.getBankName());
 
+        //Create Bank on CBTS
        Bank bank = utilityService.convertBankDtoToEntity(bankDTO);
-        bankRepository.save(bank);
+       bankRepository.save(bank);
+
+       //Create Bank on BBS
+        Optional<Bank> query = bankRepository.findByBankName(bankDTO.getBankName());
+        BBSDTO bbsdto = new BBSDTO();
+        bbsdto.setBankName(bankDTO.getBankName());
+        bbsdto.setCbtsKey(query.get().getId());
+        bbsdto.setLatitude(bankDTO.getLatitude());
+        bbsdto.setLongitude(bankDTO.getLongitude());
+        bbsdto.setBalance(bankDTO.getBalance());
+        bbsdto.setUrl(bankDTO.getUrl());
+        cbtsGateway.createBankOnBBS(bbsdto);
     }
 
     public List<BankDTO> getAllBank() {

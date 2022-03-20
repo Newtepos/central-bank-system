@@ -14,6 +14,8 @@ public class Bank {
 
     private String bankName;
 
+    private String url;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Cash> balance;
 
@@ -68,5 +70,13 @@ public class Bank {
 
     public void setCbtsKey(Long cbtsKey) {
         this.cbtsKey = cbtsKey;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

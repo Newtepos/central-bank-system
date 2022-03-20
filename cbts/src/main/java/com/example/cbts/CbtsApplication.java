@@ -43,6 +43,7 @@ public class CbtsApplication {
 		bank.setBankName("CentralBank");
 		bank.setLocation(location);
 		bank.setBalance(cashList);
+		bank.setUrl("http/localhost:8080");
 		bankRepository.save(bank);
 	}
 

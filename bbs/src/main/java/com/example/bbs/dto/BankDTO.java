@@ -12,5 +12,6 @@ public class BankDTO {
     private double latitude;
     private double longitude;
     private List<CashDTO> balance;
+    private String url;
 
 }
