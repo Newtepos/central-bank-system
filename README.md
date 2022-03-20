@@ -60,101 +60,15 @@ $java -jar target/xxxx.java
 |   GET  |    /money-truck/current   |       Get All moneytruck recent location       |            JSON           |             JSON            |
 |   GET  | /money-truck/{id}/current |      Get Moneytruck recent location by ID      |            JSON           |             JSON            |
 
-### BBS Api List
+### BBS Api List 
 | Method |            Url            |                   Description                   | Sample Valid Request Body | Samplat Valid Response Body |
 |:------:|:-------------------------:|:-----------------------------------------------:|:-------------------------:|:---------------------------:|
 |  POST  |        /bbs-package       | create cash-package for sending to Central Bank |            JSON           |             JSON            |
 |   GET  |  /bbs-package/{packageId} |           peek cash inside bbs package          |            JSON           |             JSON            |
 |   Get  | /cbts-package/{packageId} |          peek cash inside cbts package          |            JSON           |             JSON            |
+### [API Detail](../../wiki)
 
-<br/><br/>
-### CBTS API Detail
-#### 1. Create Branch Bank
-`POST /bank/`
 
-Body
-```JSON
-    {
-        "bankName": "Bank",
-        "latitude": 12.0,
-        "longitude": 12.0,
-        "balance": [
-            {
-                "amount": 20000000.00,
-                "currency": "USD"
-            },
-            {
-                "amount": 40000000000.00,
-                "currency": "THB"
-            }
-        ],
-        "url": "http://localhost:8081"
-    }
-```
-Response
-```JSON
-    {
-        "bankName": "Bank",
-        "latitude": 12.0,
-        "longitude": 12.0,
-        "balance": [
-            {
-                "amount": 20000000.00,
-                "currency": "USD"
-            },
-            {
-                "amount": 40000000000.00,
-                "currency": "THB"
-            }
-        ],
-        "url": "http://localhost:8081"
-    }
-```
-#### 2. Get All Bank Detail
-`GET /bank/`
-
-Body
-```JSON
-```
-Response
-```JSON
-[
-    {
-        "id": 1,
-        "bankName": "CentralBank",
-        "latitude": 13.9106,
-        "longitude": 100.5515,
-        "balance": [
-            {
-                "amount": 2000000000.00,
-                "currency": "THB"
-            },
-            {
-                "amount": 500000000.00,
-                "currency": "USD"
-            }
-        ],
-        "url": null
-    },
-    {
-        "id": 7,
-        "bankName": "Bank",
-        "latitude": 12.0,
-        "longitude": 12.0,
-        "balance": [
-            {
-                "amount": 20000000.00,
-                "currency": "USD"
-            },
-            {
-                "amount": 40000000000.00,
-                "currency": "THB"
-            }
-        ],
-        "url": null
-    }
-]
-```
 
 
 
