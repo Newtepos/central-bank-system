@@ -4,6 +4,9 @@ This Project used Java Spring for create basic Bank System. it consist of 2 appl
 1. Central Bank Tracking System (CBTS)
 2. Branch Bank System (BBS)
 
+## High Level System Architecture
+![central-bank-system drawio](https://user-images.githubusercontent.com/47894892/159160507-0fe8c74e-8584-467d-a76f-a2e965b030fa.png)
+
 ### Central Bank Tracking System Function
 - Create Branch Bank
 - Display All Bank in system
@@ -14,11 +17,17 @@ This Project used Java Spring for create basic Bank System. it consist of 2 appl
 - Read Cash inside CashPackage that genrated from Central or Branch Bank (Microservice)
 - Create QR Code from CashaPackage (*Incomplete)
 
+#### CBRS Class Diagram
+![CBTS Class Diagram](https://user-images.githubusercontent.com/47894892/159159822-fa0d7af6-4e55-4d98-a9fc-8a78aa465e2f.jpg)
+
 ### Branch Bank System Function
 - Create CashPackage for sending to Central Bank
 - Read Cash inside CashPackage that genrated from Central or Branch Bank (Microservice)
 - Create QR Code from CashaPackage (*Incomplete)
 <br/><br/>
+#### BBS Class Diagram
+![BBS Class Diagram drawio](https://user-images.githubusercontent.com/47894892/159159920-10a0c379-bcb4-4812-addc-29ddf70febd5.png)
+
 
 ## InitialSetup
 - Terminate port at 8080, 8081 for run Central-Bank-System Application
