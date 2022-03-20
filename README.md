@@ -40,14 +40,30 @@ $java -jar target/xxxx.java
 <br/><br/>
 
 ## API List
-| Method |                       Url                      |                       Description                       | Sample Valid Request Body | Samplat Valid Response Body |
-|:------:|:----------------------------------------------:|:-------------------------------------------------------:|:-------------------------:|:---------------------------:|
-|  POST  |                     /login                     |                        login user                       |            JSON           |             JSON            |
-|   GET  |               /product?p=product               |                Search products in market                |            JSON           |             JSON            |
-|   GET  |                  /product/{id}                 |                   Search product by id                  |            JSON           |             JSON            |
-|  POST  | /user/{userId}/cart/add/{productId}/{quantity} | Add Product to User cart by UserId, ProductId, quantity |            JSON           |             JSON            |
-|   GET  |               /user/{userId}/cart              |     Reterive Product Items in User's Cart by UserId     |            JSON           |             JSON            |
-|   GET  |          /user/{userId}/cart/checkout          |              Checkout Items in User's Cart              |            JSON           |             JSON            |
+### CBTS Api List
+| Method |            Url            |                   Description                  | Sample Valid Request Body | Samplat Valid Response Body |
+|:------:|:-------------------------:|:----------------------------------------------:|:-------------------------:|:---------------------------:|
+|  POST  |           /bank           |               Create Branch Bank               |            JSON           |             JSON            |
+|   GET  |           /bank           |               Get All Bank Detail              |            JSON           |             JSON            |
+|   GET  |         /bank/{id}        |              Get Bank Detail By Id             |            JSON           |             JSON            |
+|  POST  |       /cbts-package       | create cash-package for sending to Branch Bank |            JSON           |             JSON            |
+|   PUT  | /cbts-package/{packageId} |   update cbts package status for driver scan   |            JSON           |             JSON            |
+|   Get  | /cbts-package/{packageId} |          peek cash inside cbts package         |            JSON           |             JSON            |
+|   GET  |       /cbts-package       |          Get all cbts package in CBTS          |            JSON           |             JSON            |
+|   GET  |        /bbs-package       |           Get all bbs package in CBTS          |            JSON           |             JSON            |
+|   PUT  |  /bbs-package/{packageId} |    update bbs package status for driver scan   |            JSON           |             JSON            |
+|   Get  |  /bbs-package/{packageId} |          peek cash inside bbs package          |            JSON           |             JSON            |
+|  POST  |        /money-truck       |         create new money truck to CBTS         |            JSON           |             JSON            |
+|   PUT  |        /money-truck       |           update money truck location          |            JSON           |             JSON            |
+|   GET  |    /money-truck/current   |       Get All moneytruck recent location       |            JSON           |             JSON            |
+|   GET  | /money-truck/{id}/current |      Get Moneytruck recent location by ID      |            JSON           |             JSON            |
+
+### BBS Api List
+| Method |            Url            |                   Description                   | Sample Valid Request Body | Samplat Valid Response Body |
+|:------:|:-------------------------:|:-----------------------------------------------:|:-------------------------:|:---------------------------:|
+|  POST  |        /bbs-package       | create cash-package for sending to Central Bank |            JSON           |             JSON            |
+|   GET  |  /bbs-package/{packageId} |           peek cash inside bbs package          |            JSON           |             JSON            |
+|   Get  | /cbts-package/{packageId} |          peek cash inside cbts package          |            JSON           |             JSON            |
 
 ### 1. Login
 `POST /login/`
