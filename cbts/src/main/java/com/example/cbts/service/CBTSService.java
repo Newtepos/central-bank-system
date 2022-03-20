@@ -116,8 +116,13 @@ public class CBTSService {
         utilityService.bankNotFound(dto.getBranchId());
         utilityService.validateCenterBankFund(dto.getCurrency(), dto.getAmount());
 
+        UUID cashPackageID = UUID.randomUUID();
+        dto.setPackageId(cashPackageID);
         CBTSCashPackage cashPackage = utilityService.covertCBTSCashPackageDtoToEntity(dto);
         cbtsCashPackageRepository.save(cashPackage);
+
+        //Update CashPackage to BB System
+        cbtsGateway.createCBTSCashPackage(dto);
     }
 
     public void updateCBTSStatus(DispatchActionRequest dto, UUID packageId) {
@@ -187,7 +192,4 @@ public class CBTSService {
         }
         bbsCashPackageRepository.save(queryResult);
     }
-
-
-
 }
