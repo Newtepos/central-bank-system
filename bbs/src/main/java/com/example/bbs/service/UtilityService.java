@@ -2,6 +2,7 @@ package com.example.bbs.service;
 
 import com.example.bbs.dto.BBSCashPackageDTO;
 import com.example.bbs.dto.BankDTO;
+import com.example.bbs.dto.CBTSCashPackageDTO;
 import com.example.bbs.dto.CashDTO;
 import com.example.bbs.entites.*;
 import com.example.bbs.exception.DataAlreadyExitsException;
@@ -84,6 +85,31 @@ public class UtilityService {
         }
         return cashPackage;
     }
+
+    public CBTSCashPackage covertCBTSCashPackageDtoToEntity(CBTSCashPackageDTO dto) {
+        CBTSCashPackage cashPackage = new CBTSCashPackage();
+        cashPackage.setPackageID(dto.getPackageId());
+
+        Bank senderBank = bankRepository.getByCbtsKey(dto.getReceiverBank());
+
+        cashPackage.setReceiver(senderBank);
+
+        if(dto.getReceiveStatus() != null) {
+            cashPackage.setReceiveStatus(dto.getReceiveStatus());
+        }
+        if(dto.getSendStatus() != null) {
+            cashPackage.setSendStatus(dto.getSendStatus());
+        }
+        if(dto.getSentTime() != null) {
+            cashPackage.setSendTime(dto.getSentTime());
+        }
+        if(dto.getReceivedTime() != null) {
+            cashPackage.setReceivedTime(dto.getReceivedTime());
+        }
+        return cashPackage;
+    }
+
+
 
     //Validator
     public void validateBankExits(String bankName, Long key) {

@@ -3,9 +3,11 @@ package com.example.bbs.service;
 import com.example.bbs.BBSGateway;
 import com.example.bbs.dto.BBSCashPackageDTO;
 import com.example.bbs.dto.BankDTO;
+import com.example.bbs.dto.CBTSCashPackageDTO;
 import com.example.bbs.entites.BBSCashPackage;
 import com.example.bbs.repository.BBSCashPackageRepository;
 import com.example.bbs.repository.BankRepository;
+import com.example.bbs.repository.CBTSCashPackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ public class BBSService {
 
     @Autowired
     BBSCashPackageRepository bbsCashPackageRepository;
+
+    @Autowired
+    CBTSCashPackageRepository cbtsCashPackageRepository;
 
     @Autowired
     UtilityService utilityService;
@@ -40,5 +45,9 @@ public class BBSService {
 
         //send BBSPackage to CBTS
         bbsGateway.createBBSCashPackage(bbsCashPackageDTO);
+    }
+
+    public void createCBTSCashPackage(CBTSCashPackageDTO dto) {
+        cbtsCashPackageRepository.save(utilityService.covertCBTSCashPackageDtoToEntity(dto));
     }
 }

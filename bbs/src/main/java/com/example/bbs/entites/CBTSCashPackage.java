@@ -1,9 +1,6 @@
 package com.example.bbs.entites;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -22,6 +19,9 @@ public class CBTSCashPackage {
     private Timestamp createdTime = new Timestamp(System.currentTimeMillis());
     private Timestamp sendTime;
     private Timestamp receivedTime;
+
+    @ManyToOne
+    private Bank receiver;
 
     public CBTSCashPackage() {
     }
@@ -84,5 +84,13 @@ public class CBTSCashPackage {
 
     public void setReceivedTime(Timestamp receivedTime) {
         this.receivedTime = receivedTime;
+    }
+
+    public Bank getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(Bank receiver) {
+        this.receiver = receiver;
     }
 }
