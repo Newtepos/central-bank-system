@@ -12,10 +12,12 @@ This Project used Java Spring for create basic Bank System. it consist of 2 appl
 - Create CashPackage for sending to Branch Bank
 - Update Status CashPackage from Central to Branch Bank and vice versa
 - Read Cash inside CashPackage that genrated from Central or Branch Bank (Microservice)
+- Create QR Code from CashaPackage (*Incomplete)
 
 ### Branch Bank System Function
 - Create CashPackage for sending to Central Bank
 - Read Cash inside CashPackage that genrated from Central or Branch Bank (Microservice)
+- Create QR Code from CashaPackage (*Incomplete)
 <br/><br/>
 
 ## InitialSetup
@@ -65,22 +67,94 @@ $java -jar target/xxxx.java
 |   GET  |  /bbs-package/{packageId} |           peek cash inside bbs package          |            JSON           |             JSON            |
 |   Get  | /cbts-package/{packageId} |          peek cash inside cbts package          |            JSON           |             JSON            |
 
-### 1. Login
-`POST /login/`
+<br/><br/>
+### CBTS API Detail
+#### 1. Create Branch Bank
+`POST /bank/`
 
 Body
 ```JSON
-{
-    "username": "johndoe",
-    "password" : "1234"
-}
+    {
+        "bankName": "Bank",
+        "latitude": 12.0,
+        "longitude": 12.0,
+        "balance": [
+            {
+                "amount": 20000000.00,
+                "currency": "USD"
+            },
+            {
+                "amount": 40000000000.00,
+                "currency": "THB"
+            }
+        ],
+        "url": "http://localhost:8081"
+    }
 ```
 Response
 ```JSON
-{
-    "message": "login success"
-}
-```  
+    {
+        "bankName": "Bank",
+        "latitude": 12.0,
+        "longitude": 12.0,
+        "balance": [
+            {
+                "amount": 20000000.00,
+                "currency": "USD"
+            },
+            {
+                "amount": 40000000000.00,
+                "currency": "THB"
+            }
+        ],
+        "url": "http://localhost:8081"
+    }
+```
+#### 2. Get All Bank Detail
+`GET /bank/`
+
+Body
+```JSON
+```
+Response
+```JSON
+[
+    {
+        "id": 1,
+        "bankName": "CentralBank",
+        "latitude": 13.9106,
+        "longitude": 100.5515,
+        "balance": [
+            {
+                "amount": 2000000000.00,
+                "currency": "THB"
+            },
+            {
+                "amount": 500000000.00,
+                "currency": "USD"
+            }
+        ],
+        "url": null
+    },
+    {
+        "id": 7,
+        "bankName": "Bank",
+        "latitude": 12.0,
+        "longitude": 12.0,
+        "balance": [
+            {
+                "amount": 20000000.00,
+                "currency": "USD"
+            },
+            {
+                "amount": 40000000000.00,
+                "currency": "THB"
+            }
+        ],
+        "url": null
+    }
+]
+```
 
 
 
