@@ -43,6 +43,7 @@ $java -jar target/xxxx.java
 
 ## API List
 ### CBTS Api List
+#### [CBTS API Detail](../../wiki/CBTS-Api-Detail)
 | Method |            Url            |                   Description                  | Sample Valid Request Body | Samplat Valid Response Body |
 |:------:|:-------------------------:|:----------------------------------------------:|:-------------------------:|:---------------------------:|
 |  POST  |           /bank           |               Create Branch Bank               |            JSON           |             JSON            |
@@ -60,13 +61,14 @@ $java -jar target/xxxx.java
 |   GET  |    /money-truck/current   |       Get All moneytruck recent location       |            JSON           |             JSON            |
 |   GET  | /money-truck/{id}/current |      Get Moneytruck recent location by ID      |            JSON           |             JSON            |
 
-### BBS Api List 
+### BBS Api List
+#### [CBTS API Detail](../../wiki/BBS-Api-Detail)
 | Method |            Url            |                   Description                   | Sample Valid Request Body | Samplat Valid Response Body |
 |:------:|:-------------------------:|:-----------------------------------------------:|:-------------------------:|:---------------------------:|
 |  POST  |        /bbs-package       | create cash-package for sending to Central Bank |            JSON           |             JSON            |
 |   GET  |  /bbs-package/{packageId} |           peek cash inside bbs package          |            JSON           |             JSON            |
 |   Get  | /cbts-package/{packageId} |          peek cash inside cbts package          |            JSON           |             JSON            |
-### [API Detail](../../wiki)
+
 
 
 
