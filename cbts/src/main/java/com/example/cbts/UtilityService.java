@@ -1,4 +1,4 @@
-package com.example.cbts.service;
+package com.example.cbts;
 
 import com.example.cbts.dto.*;
 import com.example.cbts.entites.*;

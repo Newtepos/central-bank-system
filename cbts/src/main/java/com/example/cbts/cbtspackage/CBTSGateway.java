@@ -1,4 +1,4 @@
-package com.example.cbts;
+package com.example.cbts.cbtspackage;
 
 import com.example.cbts.dto.BBSDTO;
 import com.example.cbts.dto.BankDTO;

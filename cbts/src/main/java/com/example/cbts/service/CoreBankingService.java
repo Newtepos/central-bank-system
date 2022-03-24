@@ -1,6 +1,6 @@
 package com.example.cbts.service;
 
-import com.example.cbts.CBTSGateway;
+import com.example.cbts.cbtspackage.CBTSGateway;
 import com.example.cbts.dto.CashDTO;
 import com.example.cbts.entites.*;
 import com.example.cbts.repository.BankRepository;

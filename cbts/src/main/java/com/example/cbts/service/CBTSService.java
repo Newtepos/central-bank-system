@@ -1,6 +1,7 @@
 package com.example.cbts.service;
 
-import com.example.cbts.CBTSGateway;
+import com.example.cbts.UtilityService;
+import com.example.cbts.cbtspackage.CBTSGateway;
 import com.example.cbts.dto.*;
 import com.example.cbts.entites.*;
 import com.example.cbts.repository.*;
@@ -72,51 +73,6 @@ public class CBTSService {
         return utilityService.convertBankEntityToDto(queryResult);
     }
 
-    public void createCBTSCashPackage(CBTSCashPackageDTO dto) {
-        //validate input
-        utilityService.bankNotFound(dto.getBranchId());
-        utilityService.validateCenterBankFund(dto.getCurrency(), dto.getAmount());
-
-        UUID cashPackageID = UUID.randomUUID();
-        dto.setPackageId(cashPackageID);
-        CBTSCashPackage cashPackage = utilityService.covertCBTSCashPackageDtoToEntity(dto);
-        cbtsCashPackageRepository.save(cashPackage);
-
-        //Update CashPackage to BB System
-        cbtsGateway.createCBTSCashPackage(dto);
-    }
-
-    public void updateCBTSStatus(DispatchActionRequest dto, UUID packageId) {
-        //validate CBTSPackage
-        utilityService.validateCBTSCashPackage(packageId);
-
-        CBTSCashPackage queryResult = cbtsCashPackageRepository.getByPackageId(packageId);
-
-        //dispatch action
-        if(dto.getMethod().equals("sent")) {
-            queryResult.setSendStatus(true);
-            queryResult.setSendTime(dto.getActionTime());
-
-            //update Central Balance
-            coreBankingService.decreaseCentralBankBalance(queryResult);
-        }
-        else if(dto.getMethod().equals("received")) {
-            queryResult.setReceiveStatus(true);
-            queryResult.setReceivedTime(dto.getActionTime());
-        }
-        cbtsCashPackageRepository.save(queryResult);
-    }
-
-    public List<CBTSCashPackageDTO> getAllCBTSCashPackage() {
-        List<CBTSCashPackageDTO> cbtsCashPackageDTOS = new ArrayList<>();
-        List<CBTSCashPackage> queryResult = cbtsCashPackageRepository.findAll();
-        for(CBTSCashPackage cashPackage: queryResult) {
-            cbtsCashPackageDTOS.add(utilityService.covertCBTSCashPackageEntityToDto(cashPackage));
-        }
-
-        return cbtsCashPackageDTOS;
-    }
-
     public List<BBSCashPackageDTO> getAllBBSCashPackage() {
         List<BBSCashPackageDTO> bbsCashPackageDTOS = new ArrayList<>();
         List<BBSCashPackage> queryResult = bbsCashPackageRepository.findAll();
@@ -157,11 +113,4 @@ public class CBTSService {
         bbsCashPackageRepository.save(queryResult);
     }
 
-    public CashDTO readCBTSPackage(UUID packageId) {
-        CashDTO cashDTO = new CashDTO();
-        CBTSCashPackage query = cbtsCashPackageRepository.getByPackageId(packageId);
-        cashDTO.setAmount(query.getCash().getAmount());
-        cashDTO.setCurrency(query.getCash().getCurrency().getCurrency());
-        return cashDTO;
-    }
 }

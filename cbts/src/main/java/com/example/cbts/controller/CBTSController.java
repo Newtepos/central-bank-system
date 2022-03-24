@@ -1,6 +1,6 @@
 package com.example.cbts.controller;
 
-import com.example.cbts.CBTSGateway;
+import com.example.cbts.cbtspackage.CBTSGateway;
 import com.example.cbts.dto.*;
 import com.example.cbts.service.CBTSService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,27 +38,6 @@ public class CBTSController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-
-
-    @PostMapping("/cbts-package")
-    public ResponseEntity<?> createCBTSCashPackage(@RequestBody CBTSCashPackageDTO dto) {
-        cbtsService.createCBTSCashPackage(dto);
-        return new ResponseEntity<>("CashPackage Created", HttpStatus.OK);
-    }
-
-    @PutMapping("/cbts-package/{packageId}")
-    public ResponseEntity<?> updateCBTSCashPackage(@RequestBody DispatchActionRequest dto, @PathVariable String packageId) {
-        UUID convertedUUID = UUID.fromString(packageId);
-        cbtsService.updateCBTSStatus(dto, convertedUUID);
-        return new ResponseEntity<>("Update CashPackage Completed", HttpStatus.OK);
-    }
-
-    @GetMapping("/cbts-package")
-    public ResponseEntity<?> getAllCBTSCashPackage() {
-        List<CBTSCashPackageDTO> result = cbtsService.getAllCBTSCashPackage();
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
     @GetMapping("/bbs-package")
     public ResponseEntity<?> getAllBBSCashPackage() {
         List<BBSCashPackageDTO> result = cbtsService.getAllBBSCashPackage();
@@ -82,13 +61,6 @@ public class CBTSController {
     public ResponseEntity<?> readBBSPackage(@PathVariable String packageId) {
         UUID convertedUUID = UUID.fromString(packageId);
         CashDTO result = cbtsGateway.readBBSPackage(convertedUUID);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    @GetMapping("/cbts-package/{packageId}")
-    public ResponseEntity<?> readCashBBS(@PathVariable String packageId ){
-        UUID convertedUUID = UUID.fromString(packageId);
-        CashDTO result = cbtsService.readCBTSPackage(convertedUUID);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
