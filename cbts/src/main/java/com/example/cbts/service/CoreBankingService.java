@@ -1,5 +1,6 @@
 package com.example.cbts.service;
 
+import com.example.cbts.bbspackage.BBSGateway;
 import com.example.cbts.bbspackage.BBSService;
 import com.example.cbts.dto.CashDTO;
 import com.example.cbts.entites.*;
@@ -18,7 +19,7 @@ public class CoreBankingService {
     BankRepository bankRepository;
 
     @Autowired
-    BBSService bbsService;
+    BBSGateway bbsGateway;
 
     @Autowired
     CurrencyRepository currencyRepository;
@@ -42,7 +43,7 @@ public class CoreBankingService {
         Bank centralBank = bankRepository.getById(1L);
 
         //Ask BBS System how many Cash contain in cashPackage
-        CashDTO cashDTO = bbsService.readBBSPackage(cashPackage.getPackageId());
+        CashDTO cashDTO = bbsGateway.readBBSPackage(cashPackage.getPackageId());
 
         //find currency from string
         Optional<Currency> currency = currencyRepository.findByCurrency(cashDTO.getCurrency());

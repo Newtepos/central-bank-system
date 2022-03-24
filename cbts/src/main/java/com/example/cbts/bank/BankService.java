@@ -1,7 +1,7 @@
 package com.example.cbts.bank;
 
 import com.example.cbts.service.UtilityService;
-import com.example.cbts.cbtspackage.CBTSGateway;
+import com.example.cbts.bbspackage.BBSGateway;
 import com.example.cbts.dto.BBSDTO;
 import com.example.cbts.dto.BankDTO;
 import com.example.cbts.entites.Bank;
@@ -23,7 +23,7 @@ public class BankService {
     BankRepository bankRepository;
 
     @Autowired
-    CBTSGateway bbsGateway;
+    BBSGateway bbsGateway;
 
     public void createBank(BankDTO bankDTO) {
         //Validate Input

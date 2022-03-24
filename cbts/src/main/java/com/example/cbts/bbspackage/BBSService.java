@@ -9,7 +9,6 @@ import com.example.cbts.repository.BBSCashPackageRepository;
 import com.example.cbts.service.CoreBankingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +24,13 @@ public class BBSService {
     UtilityService utilityService;
 
     @Autowired
-    CoreBankingService coreBankingService;
+    BBSGateway bbsGateway;
 
     @Autowired
-    RestTemplate restTemplate;
+    CoreBankingService coreBankingService;
 
-
-    public CashDTO readBBSPackage(UUID packageId) {
-        BBSCashPackage queryBBS = bbsCashPackageRepository.getByPackageId(packageId);
-        String url = queryBBS.getSender().getUrl();
-        CashDTO cashDTO =  restTemplate.getForObject(url + "/bbs-package/" + packageId, CashDTO.class);
-        return cashDTO;
+    public CashDTO readBBSPackage(UUID uuid) {
+        return bbsGateway.readBBSPackage(uuid);
     }
 
     public List<BBSCashPackageDTO> getAllBBSCashPackage() {
