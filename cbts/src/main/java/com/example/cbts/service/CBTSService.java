@@ -72,45 +72,6 @@ public class CBTSService {
         return utilityService.convertBankEntityToDto(queryResult);
     }
 
-    public void createMoneyTruck(MoneyTruckDTO moneyTruckDTO) {
-        //Validate Input
-        utilityService.validateTruckExits(moneyTruckDTO.getTruckName());
-
-        MoneyTruck moneyTruck = utilityService.covertMoneyTruckDtoToEntity(moneyTruckDTO);
-        moneyTruckRepository.save(moneyTruck);
-    }
-
-    public void updateMoneyTruckLocation(MoneyTruckDTO moneyTruckDTO) {
-        //Validate Input
-        utilityService.moneyTruckNotFound(moneyTruckDTO.getId());
-
-        MoneyTruck moneyTruckDB = moneyTruckRepository.getById(moneyTruckDTO.getId());
-        Location location = new Location();
-        location.setLatitude(moneyTruckDTO.getLatitude());
-        location.setLongitude(moneyTruckDTO.getLongitude());
-        location.setTimestamp(moneyTruckDTO.getTimestamp());
-        moneyTruckDB.addLocation(location);
-        moneyTruckRepository.save(moneyTruckDB);
-    }
-
-    public List<MoneyTruckDTO> getAllMoneyTruckLastLocation() {
-        List<MoneyTruckDTO> moneyTruckDTOList = new ArrayList<>();
-        List<MoneyTruck> queryResult = moneyTruckRepository.findAll();
-        for(MoneyTruck moneyTruck: queryResult) {
-            MoneyTruckDTO moneyTruckDTO = utilityService.covertMoneyTruckEntityToDto(moneyTruck);
-            moneyTruckDTOList.add(moneyTruckDTO);
-        }
-
-        return moneyTruckDTOList;
-    }
-
-    public MoneyTruckDTO getMoneyTruckLocationById(long id) {
-        //validate input id
-        utilityService.moneyTruckNotFound(id);
-
-       return utilityService.covertMoneyTruckEntityToDto(moneyTruckRepository.getById(id));
-    }
-
     public void createCBTSCashPackage(CBTSCashPackageDTO dto) {
         //validate input
         utilityService.bankNotFound(dto.getBranchId());

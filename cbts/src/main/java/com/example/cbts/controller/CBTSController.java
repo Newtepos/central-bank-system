@@ -38,29 +38,7 @@ public class CBTSController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PostMapping("/money-truck")
-    public ResponseEntity<?> createTruck(@RequestBody MoneyTruckDTO moneyTruckDTO) {
-       cbtsService.createMoneyTruck(moneyTruckDTO);
-        return new ResponseEntity<>("Created", HttpStatus.OK);
-    }
 
-    @PutMapping("/money-truck")
-    public ResponseEntity<?> updateTruck(@RequestBody MoneyTruckDTO moneyTruckDTO) {
-        cbtsService.updateMoneyTruckLocation(moneyTruckDTO);
-        return new ResponseEntity<>("Updated", HttpStatus.OK);
-    }
-
-    @GetMapping("/money-truck/current")
-    public ResponseEntity<?> getAllMoneyTruckLocation() {
-        List<MoneyTruckDTO> result = cbtsService.getAllMoneyTruckLastLocation();
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    @GetMapping("/money-truck/{id}/current")
-    public ResponseEntity<?> getMoneyTruckRecentLocationById(@PathVariable long id) {
-        MoneyTruckDTO result = cbtsService.getMoneyTruckLocationById(id);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
 
     @PostMapping("/cbts-package")
     public ResponseEntity<?> createCBTSCashPackage(@RequestBody CBTSCashPackageDTO dto) {
