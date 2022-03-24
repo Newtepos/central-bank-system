@@ -39,25 +39,8 @@ public class BBSService {
         bankRepository.save(utilityService.covertBankDtoToEntity(dto));
     }
 
-    public void createBBSCashPackage(BBSCashPackageDTO bbsCashPackageDTO) {
-        UUID cashPackageId = UUID.randomUUID();
-        bbsCashPackageDTO.setPackageId(cashPackageId);
-        bbsCashPackageRepository.save(utilityService.covertBBSCashPackageDtoToEntity(bbsCashPackageDTO));
-
-        //send BBSPackage to CBTS
-        bbsGateway.createBBSCashPackage(bbsCashPackageDTO);
-    }
-
     public void createCBTSCashPackage(CBTSCashPackageDTO dto) {
         cbtsCashPackageRepository.save(utilityService.covertCBTSCashPackageDtoToEntity(dto));
     }
 
-    public CashDTO readBBSCashPackage(UUID packageId) {
-        CashDTO cashDTO = new CashDTO();
-        BBSCashPackage query = bbsCashPackageRepository.getByPackageId(packageId);
-        cashDTO.setAmount(query.getCash().getAmount());
-        cashDTO.setCurrency(query.getCash().getCurrency().getCurrency());
-
-        return cashDTO;
-    }
 }

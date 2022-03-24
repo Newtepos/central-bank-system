@@ -28,23 +28,10 @@ public class BBSController {
         return new ResponseEntity<>("Branch-Bank Created", HttpStatus.OK);
     }
 
-    @PostMapping("/bbs-package")
-    public ResponseEntity<?> createBBSPackage(@RequestBody BBSCashPackageDTO bbsCashPackageDTO) {
-        bbsService.createBBSCashPackage(bbsCashPackageDTO);
-        return new ResponseEntity<>("Package Created", HttpStatus.OK);
-    }
-
     @PostMapping("/cbts-package")
     public ResponseEntity<?> createCBTSPackage(@RequestBody CBTSCashPackageDTO dto) {
         bbsService.createCBTSCashPackage(dto);
         return new ResponseEntity<>("Package Created", HttpStatus.OK);
-    }
-
-    @GetMapping("/bbs-package/{packageId}")
-    public ResponseEntity<?> readCashBBS(@PathVariable String packageId ){
-        UUID convertedUUID = UUID.fromString(packageId);
-        CashDTO result = bbsService.readBBSCashPackage(convertedUUID);
-        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/cbts-package/{packageId}")
