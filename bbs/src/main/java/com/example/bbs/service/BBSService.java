@@ -39,8 +39,4 @@ public class BBSService {
         bankRepository.save(utilityService.covertBankDtoToEntity(dto));
     }
 
-    public void createCBTSCashPackage(CBTSCashPackageDTO dto) {
-        cbtsCashPackageRepository.save(utilityService.covertCBTSCashPackageDtoToEntity(dto));
-    }
-
 }

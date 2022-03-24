@@ -27,17 +27,4 @@ public class BBSController {
         bbsService.createBranchBank(bankDTO);
         return new ResponseEntity<>("Branch-Bank Created", HttpStatus.OK);
     }
-
-    @PostMapping("/cbts-package")
-    public ResponseEntity<?> createCBTSPackage(@RequestBody CBTSCashPackageDTO dto) {
-        bbsService.createCBTSCashPackage(dto);
-        return new ResponseEntity<>("Package Created", HttpStatus.OK);
-    }
-
-    @GetMapping("/cbts-package/{packageId}")
-    public ResponseEntity<?> readBBSPackage(@PathVariable String packageId) {
-        UUID convertedUUID = UUID.fromString(packageId);
-        CashDTO result = bbsGateway.readCBTSPackage(convertedUUID);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
 }
