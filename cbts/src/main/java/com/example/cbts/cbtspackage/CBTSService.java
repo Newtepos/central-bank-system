@@ -1,5 +1,6 @@
 package com.example.cbts.cbtspackage;
 
+import com.example.cbts.bbspackage.BBSGateway;
 import com.example.cbts.dto.CBTSCashPackageDTO;
 import com.example.cbts.dto.CashDTO;
 import com.example.cbts.dto.DispatchActionRequest;
@@ -24,10 +25,10 @@ public class CBTSService {
     CBTSCashPackageRepository cbtsCashPackageRepository;
 
     @Autowired
-    CBTSGateway cbtsGateway;
+    CoreBankingService coreBankingService;
 
     @Autowired
-    CoreBankingService coreBankingService;
+    BBSGateway bbsGateway;
 
     public void createCBTSCashPackage(CBTSCashPackageDTO dto) {
         //validate input
@@ -40,7 +41,7 @@ public class CBTSService {
         cbtsCashPackageRepository.save(cashPackage);
 
         //Update CashPackage to BB System
-        cbtsGateway.createCBTSCashPackage(dto);
+        bbsGateway.createCBTSCashPackage(dto);
     }
 
     public void updateCBTSStatus(DispatchActionRequest dto, UUID packageId) {
