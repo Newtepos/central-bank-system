@@ -1,7 +1,6 @@
 package com.example.cbts.moneytruck;
 
 import com.example.cbts.dto.MoneyTruckDTO;
-import com.example.cbts.service.CBTSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

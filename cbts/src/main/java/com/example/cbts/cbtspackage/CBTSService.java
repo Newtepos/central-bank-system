@@ -7,7 +7,7 @@ import com.example.cbts.dto.DispatchActionRequest;
 import com.example.cbts.entites.CBTSCashPackage;
 import com.example.cbts.repository.CBTSCashPackageRepository;
 import com.example.cbts.service.CoreBankingService;
-import com.example.cbts.UtilityService;
+import com.example.cbts.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

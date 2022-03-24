@@ -4,7 +4,7 @@ import com.example.cbts.dto.MoneyTruckDTO;
 import com.example.cbts.entites.Location;
 import com.example.cbts.entites.MoneyTruck;
 import com.example.cbts.repository.MoneyTruckRepository;
-import com.example.cbts.UtilityService;
+import com.example.cbts.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,10 +1,11 @@
-package com.example.cbts.service;
+package com.example.cbts.bank;
 
-import com.example.cbts.UtilityService;
+import com.example.cbts.service.UtilityService;
 import com.example.cbts.bbspackage.BBSGateway;
-import com.example.cbts.dto.*;
-import com.example.cbts.entites.*;
-import com.example.cbts.repository.*;
+import com.example.cbts.dto.BBSDTO;
+import com.example.cbts.dto.BankDTO;
+import com.example.cbts.entites.Bank;
+import com.example.cbts.repository.BankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,27 +14,26 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CBTSService {
-
-    @Autowired
-    BankRepository bankRepository;
+public class BankService {
 
     @Autowired
     UtilityService utilityService;
 
     @Autowired
-    BBSGateway bbsGateway;
+    BankRepository bankRepository;
 
+    @Autowired
+    BBSGateway bbsGateway;
 
     public void createBank(BankDTO bankDTO) {
         //Validate Input
         utilityService.validateBankExits(bankDTO.getBankName());
 
         //Create Bank on CBTS
-       Bank bank = utilityService.convertBankDtoToEntity(bankDTO);
-       bankRepository.save(bank);
+        Bank bank = utilityService.convertBankDtoToEntity(bankDTO);
+        bankRepository.save(bank);
 
-       //Create Bank on BBS
+        //Create Bank on BBS
         Optional<Bank> query = bankRepository.findByBankName(bankDTO.getBankName());
         BBSDTO bbsdto = new BBSDTO();
         bbsdto.setBankName(bankDTO.getBankName());
@@ -59,6 +59,4 @@ public class CBTSService {
         Bank queryResult = bankRepository.getById(id);
         return utilityService.convertBankEntityToDto(queryResult);
     }
-
-
 }

@@ -1,6 +1,6 @@
 package com.example.cbts.bbspackage;
 
-import com.example.cbts.UtilityService;
+import com.example.cbts.service.UtilityService;
 import com.example.cbts.dto.BBSCashPackageDTO;
 import com.example.cbts.dto.CashDTO;
 import com.example.cbts.dto.DispatchActionRequest;

@@ -1,4 +1,4 @@
-package com.example.cbts.controller;
+package com.example.cbts;
 
 import com.example.cbts.exception.CannotFindDataException;
 import com.example.cbts.exception.DataAlreadyExitsException;
