@@ -1,4 +1,4 @@
-package com.example.bbs.controller;
+package com.example.bbs;
 
 import com.example.bbs.exception.DataAlreadyExitsException;
 import com.example.bbs.response.BBSResponse;
