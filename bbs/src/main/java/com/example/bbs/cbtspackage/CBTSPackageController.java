@@ -1,6 +1,5 @@
 package com.example.bbs.cbtspackage;
 
-import com.example.bbs.BBSGateway;
 import com.example.bbs.dto.CBTSCashPackageDTO;
 import com.example.bbs.dto.CashDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ public class CBTSPackageController {
     CBTSPackageService cbtsPackageService;
 
     @Autowired
-    BBSGateway bbsGateway;
+    CBTSGateway bbsGateway;
 
     @PostMapping("/cbts-package")
     public ResponseEntity<?> createCBTSPackage(@RequestBody CBTSCashPackageDTO dto) {

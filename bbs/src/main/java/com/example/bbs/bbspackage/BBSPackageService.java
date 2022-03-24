@@ -1,6 +1,6 @@
 package com.example.bbs.bbspackage;
 
-import com.example.bbs.BBSGateway;
+import com.example.bbs.cbtspackage.CBTSGateway;
 import com.example.bbs.dto.BBSCashPackageDTO;
 import com.example.bbs.dto.CashDTO;
 import com.example.bbs.entites.BBSCashPackage;
@@ -21,7 +21,7 @@ public class BBSPackageService {
     UtilityService utilityService;
 
     @Autowired
-    BBSGateway bbsGateway;
+    CBTSGateway bbsGateway;
 
     public void createBBSCashPackage(BBSCashPackageDTO bbsCashPackageDTO) {
         UUID cashPackageId = UUID.randomUUID();

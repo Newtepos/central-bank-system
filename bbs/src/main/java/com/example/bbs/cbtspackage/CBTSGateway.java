@@ -1,7 +1,6 @@
-package com.example.bbs;
+package com.example.bbs.cbtspackage;
 
 import com.example.bbs.dto.BBSCashPackageDTO;
-import com.example.bbs.dto.CBTSCashPackageDTO;
 import com.example.bbs.dto.CashDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.UUID;
 
 @Component
-public class BBSGateway {
+public class CBTSGateway {
 
     @Autowired
     private RestTemplate restTemplate;
