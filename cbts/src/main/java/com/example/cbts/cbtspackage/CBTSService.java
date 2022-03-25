@@ -4,13 +4,19 @@ import com.example.cbts.bbspackage.BBSGateway;
 import com.example.cbts.dto.CBTSCashPackageDTO;
 import com.example.cbts.dto.CashDTO;
 import com.example.cbts.dto.DispatchActionRequest;
+import com.example.cbts.dto.QRCodeDTO;
 import com.example.cbts.entites.CBTSCashPackage;
+import com.example.cbts.qrcode.QRCodeGenarator;
 import com.example.cbts.repository.CBTSCashPackageRepository;
 import com.example.cbts.service.CoreBankingService;
 import com.example.cbts.service.UtilityService;
+import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -29,6 +35,9 @@ public class CBTSService {
 
     @Autowired
     BBSGateway bbsGateway;
+
+    @Autowired
+    QRCodeGenarator qrCodeGenarator;
 
     public void createCBTSCashPackage(CBTSCashPackageDTO dto) {
         //validate input
@@ -82,4 +91,24 @@ public class CBTSService {
         cashDTO.setCurrency(query.getCash().getCurrency().getCurrency());
         return cashDTO;
     }
+
+    public QRCodeDTO createCBTSQRCODE(UUID packageId) {
+
+        QRCodeDTO qrCodeDTO = new QRCodeDTO();
+        String cbts_url = "http://localhost:8080/cbts-package/" + packageId + "/qr-code/";
+        try {
+            String send_qrcode = qrCodeGenarator.getQRCodeImage(cbts_url + "send/true", 250 , 250);
+            String receive_qrcode = qrCodeGenarator.getQRCodeImage(cbts_url + "receive/true", 250, 250);
+
+            qrCodeDTO.setSendQRCodeBase64(send_qrcode);
+            qrCodeDTO.setReceiveQRCodeBase64(receive_qrcode);
+        }
+        catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
+
+        return qrCodeDTO;
+    }
+
+
 }
