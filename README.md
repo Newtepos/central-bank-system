@@ -15,7 +15,7 @@ This Project used Java Spring for create basic Bank System. it consist of 2 appl
 - Create CashPackage for sending to Branch Bank
 - Update Status CashPackage from Central to Branch Bank and vice versa
 - Read Cash inside CashPackage that genrated from Central or Branch Bank (Microservice)
-- Create QR Code from CashaPackage (*Incomplete)
+- Create QR Code from CashaPackage (CBTS/BBS Package)
 
 #### CBRS Class Diagram
 ![CBTS Class Diagram](https://user-images.githubusercontent.com/47894892/159159822-fa0d7af6-4e55-4d98-a9fc-8a78aa465e2f.jpg)
@@ -23,8 +23,8 @@ This Project used Java Spring for create basic Bank System. it consist of 2 appl
 ### Branch Bank System Function
 - Create CashPackage for sending to Central Bank
 - Read Cash inside CashPackage that genrated from Central or Branch Bank (Microservice)
-- Create QR Code from CashaPackage (*Incomplete)
 <br/><br/>
+
 #### BBS Class Diagram
 ![BBS Class Diagram drawio](https://user-images.githubusercontent.com/47894892/159159920-10a0c379-bcb4-4812-addc-29ddf70febd5.png)
 
@@ -68,7 +68,13 @@ $java -jar target/xxxx.java
 |  POST  |        /money-truck       |         create new money truck to CBTS         |            JSON           |             JSON            |
 |   PUT  |        /money-truck       |           update money truck location          |            JSON           |             JSON            |
 |   GET  |    /money-truck/current   |       Get All moneytruck recent location       |            JSON           |             JSON            |
-|   GET  | /money-truck/{id}/current |      Get Moneytruck recent location by ID      |            JSON           |             JSON            |
+|   GET  | /cbts-package/{packageId}/qr-code |      Get cbts package QRCode      |            JSON           |             JSON            |
+|   GET  | /cbts-package/{packageId}/qr-code/send/true |      Sent cbts package (SCAN QR Code)      |            JSON           |        JSON     |
+|   GET  | /cbts-package/{packageId}/qr-code/receive/true |      Recived cbts package (SCAN QR Code)      |            JSON           |        JSON   |
+|   GET  | /bbs-package/{packageId}/qr-code |      Get bbs package QRCode      |            JSON           |             JSON            |
+|   GET  | /bbs-package/{packageId}/qr-code/send/true |      Sent bbs package (SCAN QR Code)      |            JSON           |        JSON     |
+|   GET  | /bbs-package/{packageId}/qr-code/receive/true |      Recived bbs package (SCAN QR Code)      |            JSON           |        JSON     |
+
 
 ### BBS Api List
 #### [CBTS API Detail](../../wiki/BBS-Api-Detail)
